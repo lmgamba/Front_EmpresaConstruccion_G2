@@ -15,7 +15,7 @@ export class Login {
   UsersService = inject(Users);
 
 
-   loginFrom: FormGroup = new FormGroup({
+   loginForm: FormGroup = new FormGroup({
     email: new FormControl(),
     password: new FormControl()
    });
