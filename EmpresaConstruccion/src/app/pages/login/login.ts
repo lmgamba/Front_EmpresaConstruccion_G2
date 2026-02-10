@@ -25,7 +25,7 @@ export class Login {
     //this.registroFrom.value = > valores del form
       try {
       //TODO user service
-      const response = await this.UsersService.login(this.loginFrom.value);
+      const response = await this.UsersService.login(this.loginForm.value);
       console.log(response)
 
       //guardar TOKEN (en LocalStorage = espacio en el navegador). Para ello se usa localStorage.setItem(key: string, value:-)
