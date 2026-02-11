@@ -1,0 +1,24 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Available Workers</h2>
+        <span class="badge-total">12 Total</span>
+    </div>
+
+    <div class="filter-section">
+        <div class="input-group mb-4 search-bar">
+            <span class="input-group-text search-icon">
+                🔍
+            </span>
+            <input type="text" class="form-control search-input" placeholder="Search by name or site...">
+        </div>
+
+        <div class="filter-buttons">
+            <button type="button" class="btn btn-filter active">Available</button>
+            <button type="button" class="btn btn-filter">Busy</button>
+        </div>
+    </div>
+
+
+    <workers-list [ArrayUsers]="empleados"></workers-list>
+
+</div>

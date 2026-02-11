@@ -1,6 +1,6 @@
-import {Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Users } from '../../core/services/users';
+import { UserService } from '../../core/services/users';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrl: './register.css',
 })
 export class Register {
-    router= inject(Router)
 
+  router = inject(Router);
 
-  usersService = inject(Users);
+  usersService = inject(UserService);
 
   registerFrom: FormGroup = new FormGroup({
     username: new FormControl(),
@@ -30,7 +30,7 @@ export class Register {
       //redireccion al login
       this.router.navigateByUrl('/login')
     } catch (error) {
-      
+
     }
   }
 

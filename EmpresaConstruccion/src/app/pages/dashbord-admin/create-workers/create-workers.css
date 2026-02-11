@@ -1,0 +1,78 @@
+/* Centramos todo el contenido en la pantalla */
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    /* Fondo con imagen y capa de opacidad (negro al 50% sobre la imagen) */
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('https://images.unsplash.com/photo-1614366324821-cfa7713a5163?q=80&w=1626&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Estilo del cuadro de diálogo (el contenedor) */
+.container {
+    max-width: 400px;
+    /* Lo hace más estrecho */
+    background-color: #1a2632;
+    /* Fondo pedido */
+    color: white;
+    /* Color de fuente general */
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+/* Ajuste de los labels */
+.form-label {
+    color: #e0e0e0;
+}
+
+/* Botón personalizado */
+.btn-info {
+    background-color: #0678eb !important;
+    border: none;
+    width: 100%;
+    /* Que ocupe todo el ancho */
+    padding: 0.7rem;
+    color: white;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.btn-info:hover {
+    background-color: #0566c7 !important;
+    filter: brightness(1.1);
+}
+
+/* Enlaces */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #3686dc;
+    /* Color pedido */
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #2a5a8a;
+    /* Un poco más claro al pasar el mouse para que se vea */
+}
+
+/* Estilo para los inputs para que no desentonen */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+}

@@ -1,0 +1,112 @@
+/* GENERAL */
+/* El contenedor principal usa el color del login de ayer */
+.dashboard-container {
+    padding: 25px;
+    border-radius: 16px;
+    max-width: 700px;
+    /* Ajusta según necesites */
+    margin: 30px auto;
+    background-color: #0f172a;
+    color: #e2e8f0;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+    left: 0;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* La pequeña etiqueta de "12 Total" */
+.badge-total {
+    background-color: var(--card-bg);
+    color: var(--accent-blue);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.workers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* Espacio entre las tarjetas de usuario */
+}
+
+/* FILTER */
+.filter-section {
+    margin-bottom: 25px;
+}
+
+/* --- Personalizando el Input de Bootstrap para modo oscuro --- */
+.search-bar .input-group-text,
+.search-bar .form-control {
+    background-color: var(--card-bg);
+    /* Fondo oscuro para el input */
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 12px 15px;
+}
+
+.search-bar .input-group-text {
+    border-right: none;
+    color: var(--text-secondary);
+    /* Icono un poco más apagado */
+}
+
+.search-bar .form-control {
+    border-left: none;
+}
+
+.search-bar .form-control::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.search-bar .form-control:focus {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border-color: var(--accent-blue);
+    /* Borde azul al hacer click */
+    box-shadow: none;
+}
+
+
+/* --- Botones de Filtro --- */
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-filter {
+    background-color: transparent;
+    border: 1px solid var(--card-bg);
+    /* Borde sutil */
+    color: var(--text-secondary);
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-filter:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+}
+
+/* Estilo para el botón activo (El azul "All Roles") */
+.btn-filter.active {
+    background-color: var(--accent-blue);
+    color: white;
+    border: 1px solid var(--accent-blue);
+}

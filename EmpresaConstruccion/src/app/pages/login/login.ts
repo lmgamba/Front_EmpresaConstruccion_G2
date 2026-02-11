@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Users } from '../../core/services/users';
+import { UserService } from '../../core/services/users';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -11,19 +11,19 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class Login {
 
-  router= inject(Router)
-  UsersService = inject(Users);
+  router = inject(Router)
+  UsersService = inject(UserService);
 
 
-   loginForm: FormGroup = new FormGroup({
+  loginForm: FormGroup = new FormGroup({
     email: new FormControl(),
     password: new FormControl()
-   });
-  
-  
-    async onSubmit() {
+  });
+
+
+  async onSubmit() {
     //this.registroFrom.value = > valores del form
-      try {
+    try {
       //TODO user service
       const response = await this.UsersService.login(this.loginForm.value);
       console.log(response)

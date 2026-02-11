@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="worker-item">
+        <div class="worker-avatar">
+            {{user.name[0]}}{{user.surname[0]}}
+        </div>
+        ⁠
+        <div class="worker-info">
+            <span class="worker-name">{{user.name}}</span>
+            <span class="worker-name"> {{user.surname}}</span>
+            <div class="worker-role">{{user.role}}</div>
+        </div>
+        ⁠<div class="worker-status" [class.available]="user.status" [class.unavailable]="!user.status">
+            {{ user.status ? 'Available' : 'Busy' }}
+        </div>
+    </div>
+</div>
