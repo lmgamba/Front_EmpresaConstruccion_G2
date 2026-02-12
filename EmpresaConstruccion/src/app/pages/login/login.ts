@@ -16,7 +16,7 @@ export class Login {
 
 
   loginForm: FormGroup = new FormGroup({
-    email: new FormControl(),
+    mail: new FormControl(),
     password: new FormControl()
   });
 

@@ -27,19 +27,19 @@ export class UserService {
   // para usar HttpCliente debe estar dentro del appconfig como provider
   private httpClient = inject(HttpClient);
 
-  private baseUrl = ''//TODO: URL api;
+  private baseUrl = 'http://127.0.0.1:8000/';
 
   register(newUser: IUser) {
     // el firstValueFrom lo transforma en promesa:
     return firstValueFrom(
-      this.httpClient.post<{ success: string }>(`${this.baseUrl}/register`, newUser)
+      this.httpClient.post<{ success: string }>(`${this.baseUrl}/auth/register`, newUser)
     )
   }
 
   login(userLog: { email: string, password: string }) {
     // el firstValueFrom lo transforma en promesa:
     return firstValueFrom(
-      this.httpClient.post<LoginResponse>(`${this.baseUrl}/login`, userLog)
+      this.httpClient.post<LoginResponse>(`${this.baseUrl}/auth/login`, userLog)
     )
   }
 
@@ -53,7 +53,7 @@ export class UserService {
   
   update(id_users: string, updatedUser: UpdateUser) {
     return firstValueFrom
-      (this.httpClient.patch<{ success: string }>(this.baseUrl, id_users));
+      (this.httpClient.patch<{ success: string }>(`${this.baseUrl}/users/`, id_users);
   }
 
 
