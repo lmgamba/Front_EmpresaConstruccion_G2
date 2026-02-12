@@ -1,55 +1,94 @@
-/* GENERAL */
-/* El contenedor principal usa el color del login */
+/* CONTENEDOR PRINCIPAL */
 .dashboard-container {
-  padding: 25px;
-  border-radius: 16px;
-  /* Ajusta según necesites */
-  margin: 30px auto;
+  padding: 30px;
+  margin: 5px auto;
+  max-width: 1520px;
   background-color: #0f172a;
   color: #e2e8f0;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+  /* Configuramos el Grid */
   display: grid;
+  grid-template-columns: 380px 1fr; /* Izquierda fija, derecha flexible */
   grid-template-areas:
     'header header'
-    'left content'
-    'footer footer';
+    'left   content';
+  gap: 30px;
 }
 
-/* barra lateral izquierda */
-
-.left-container {
-  padding: 25px;
-  border-radius: 16px;
-  /* Ajusta según necesites */
-  background-color: #0f172a;
-  max-width: 400px;
-  color: #e2e8f0;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
-  grid-area: left;
-  left: 0;
-}
-
+/* HEADER (Ocupa las dos columnas) */
 .dashboard-header {
   grid-area: header;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
 }
 
-h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-/* Estilo para el botón activo (El azul "All Roles") */
-.btn-filter.active {
-  background-color: var(--accent-blue);
-  color: white;
-  border: 1px solid var(--accent-blue);
-}
-
-.site-container {
+/* COLUMNA IZQUIERDA (Trabajadores) */
+.left-head {
   display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.left-container {
+  grid-area: left;
+  background-color: #1e293b; /* Un tono ligeramente distinto para contrastar */
+  padding: 20px;
+  border-radius: 12px;
+  height: fit-content;
+}
+
+/* CONTENEDOR DE SITIOS (Derecha) */
+.site-container {
+  grid-area: content;
+}
+
+.site-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* LA MAGIA: Rejilla de 2 en 2 para las Construcciones */
+.site-container .container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Crea 2 columnas iguales */
+  gap: 20px; /* Espacio entre las fichas */
+  padding: 0; /* Quitamos padding de bootstrap si molesta */
+}
+
+/* Ajuste para que las cards ocupen todo el ancho de su celda de grid */
+site-card {
+  width: 100%;
+}
+
+.btn-filter {
+  color: white;
+}
+
+/* RESPONSIVE: Si la pantalla es pequeña, ponemos todo en 1 columna */
+@media (max-width: 1100px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'header'
+      'left'
+      'content';
+  }
+
+  .site-container .container {
+    grid-template-columns: 1fr; /* En tablets/móvil, de 1 en 1 */
+  }
+
+  .left-container {
+    max-width: 100%;
+  }
 }

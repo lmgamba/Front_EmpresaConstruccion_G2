@@ -1,0 +1,63 @@
+.app-shell {
+  display: grid;
+  /* La sidebar mide 260px y el resto ocupa todo lo que queda */
+  grid-template-columns: 260px 1fr;
+  grid-template-areas: 'sidebar content';
+  min-height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
+  gap: 0; /* Cero espacio entre celdas */
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: #0b1220;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  border-right: 1px solid #1e293b;
+  height: 100vh; /* Altura completa */
+  position: sticky; /* Se queda fija mientras haces scroll en el contenido */
+  top: 0;
+}
+
+.content {
+  grid-area: content;
+  background-color: #0f172a; /* El color de fondo de tu dashboard */
+  min-height: 100vh;
+  /* Si tu contenido tiene su propio padding, lo manejas aquí */
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-weight: 700;
+  margin-bottom: 50px;
+}
+
+.logo-icon {
+  background: #2563eb;
+  color: white;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* SIGNOUT AL FINAL */
+.signout {
+  margin-top: auto; /* Empuja el botón al fondo del sidebar */
+  padding: 15px 0;
+  color: #64748b;
+  cursor: pointer;
+  border-top: 1px solid #1e293b;
+  transition: color 0.2s;
+}
+
+.signout:hover {
+  color: #ef4444; /* Rojo al pasar el ratón */
+}

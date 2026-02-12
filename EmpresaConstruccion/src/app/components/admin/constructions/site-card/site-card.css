@@ -1,11 +1,12 @@
 .site-card {
-  background-color: #0f172a;
+  background-color: #1e293b;
   border: 1px solid var(--card-border);
   border-radius: 16px;
   padding: 20px;
-  max-width: 700px;
-  min-width: 450px;
+  max-width: 500px;
+  min-width: 400px;
   /* Tamaño similar al de la imagen */
+
   color: white;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   /* Ajusta según necesites */

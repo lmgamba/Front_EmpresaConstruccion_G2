@@ -1,1 +1,21 @@
-<p>constructions works!</p>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Project Management</h1>
+    <button class="btn btn-info">Publish changes</button>
+  </div>
+
+  <div class="site-container">
+    <div class="site-head">
+      <h2>Active Constructions</h2>
+      <span class="badge-total">4 Sites</span>
+    </div>
+    <div class="container">
+      <!-- cambiar empleados por ArrayConstructions() una vez conectado con el back -->
+      @for (site of constructions; track site.id_constructions) {
+        <site-card [construction]="site"></site-card>
+      } @empty {
+        <p class="text-white">No workers found.</p>
+      }
+    </div>
+  </div>
+</div>

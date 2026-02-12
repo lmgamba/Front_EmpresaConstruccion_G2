@@ -1,7 +1,25 @@
 <nav class="nav">
-  <a class="nav-item active" [routerLink]="['/dashboard-admin']">Overview</a>
-  <a class="nav-item">Projects</a>
-  <a class="nav-item" [routerLink]="['/dashboard_admin/workers']">Workers</a>
+  <a
+    class="nav-item"
+    routerLink="/dashboard_admin"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Overview</a
+  >
+  <a
+    class="nav-item"
+    routerLink="/dashboard_admin/constructions"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Projects</a
+  >
+  <a
+    class="nav-item"
+    routerLink="/dashboard_admin/workers"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Workers</a
+  >
   <a class="nav-item">Assignments</a>
   <a class="nav-item">Reports</a>
   <a class="nav-item">Settings</a>

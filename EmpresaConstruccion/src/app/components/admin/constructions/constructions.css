@@ -1,0 +1,72 @@
+/* CONTENEDOR PRINCIPAL */
+.dashboard-container {
+  padding: 30px;
+  margin: 5px auto;
+  max-width: 1520px;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+  /* Configuramos el Grid */
+  gap: 30px;
+}
+
+/* HEADER (Ocupa las dos columnas) */
+.dashboard-header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+}
+
+/* CONTENEDOR DE SITIOS (Derecha) */
+.site-container {
+  grid-area: content;
+}
+
+.site-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* LA MAGIA: Rejilla de 2 en 2 para las Construcciones */
+.site-container .container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Crea 2 columnas iguales */
+  gap: 20px; /* Espacio entre las fichas */
+  padding: 0; /* Quitamos padding de bootstrap si molesta */
+}
+
+/* Ajuste para que las cards ocupen todo el ancho de su celda de grid */
+site-card {
+  width: 100%;
+}
+
+.btn-filter {
+  color: white;
+}
+
+/* RESPONSIVE: Si la pantalla es pequeña, ponemos todo en 1 columna */
+@media (max-width: 1100px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'header'
+      'left'
+      'content';
+  }
+
+  .site-container .container {
+    grid-template-columns: 1fr; /* En tablets/móvil, de 1 en 1 */
+  }
+
+  .left-container {
+    max-width: 100%;
+  }
+}

@@ -7,22 +7,18 @@ import { DashboardAdmin } from './pages/dashbord-admin/dashboard-admin';
 import { CreateWorkers } from './pages/dashbord-admin/create-workers/create-workers';
 import { authGuard } from './core/guards/auth-guards';
 import { SiteCard } from './components/admin/constructions/site-card/site-card';
+import { Constructions } from './components/admin/constructions/constructions';
 
 
 export const routes: Routes = [
-    // TODO: guards
-    // put operario = usser
-    // delete operario
+    // TODO: guards, 
     { path: 'register', component: Register },
     { path: 'login', component: Login },
     { path: 'dashboard_admin', component: DashboardAdmin },
     { path: 'dashboard_user', component: DashboardUser },
     { path: 'dashboard_admin/workers', component: Workers },
-    { path: 'dashboard_admin/create-workers', component: CreateWorkers },
-
-
-    // TESTING
-    { path: 'dashboard_admin/sites', component: SiteCard }
+    { path: 'dashboard_admin/create-worker', component: CreateWorkers },
+    { path: 'dashboard_admin/constructions', component: Constructions },
 
 
 
