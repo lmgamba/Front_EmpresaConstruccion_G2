@@ -1,6 +1,6 @@
 import { Component, signal, inject, Input } from '@angular/core';
-import { UsersCard } from '../../../../components/admin/user_card/user_card';
-import { IUser } from '../../../../interfaces/iuser';
+import { UsersCard } from '../user_card/user_card';
+import { IUser } from '../../../interfaces/iuser';
 
 @Component({
   selector: 'workers-list',

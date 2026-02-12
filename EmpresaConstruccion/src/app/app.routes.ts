@@ -6,6 +6,7 @@ import { Workers } from './pages/dashbord-admin/workers/workers';
 import { DashboardAdmin } from './pages/dashbord-admin/dashboard-admin';
 import { CreateWorkers } from './pages/dashbord-admin/create-workers/create-workers';
 import { authGuard } from './core/guards/auth-guards';
+import { SiteCard } from './components/admin/constructions/site-card/site-card';
 
 
 export const routes: Routes = [
@@ -17,7 +18,13 @@ export const routes: Routes = [
     { path: 'dashboard_admin', component: DashboardAdmin },
     { path: 'dashboard_user', component: DashboardUser },
     { path: 'dashboard_admin/workers', component: Workers },
-    { path: 'dashboard_admin/create-workers', component: CreateWorkers }
+    { path: 'dashboard_admin/create-workers', component: CreateWorkers },
+
+
+    // TESTING
+    { path: 'dashboard_admin/sites', component: SiteCard }
+
+
 
     //TODO: añaadir  canActivate: [authGuard] a CreateWorkers cuando el back esté conectado
 

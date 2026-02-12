@@ -2,7 +2,7 @@ import { UserService } from './../../../core/services/users';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-edit-worker',
@@ -34,7 +34,7 @@ export class EditWorker {
 
     try {
       const worker = await this.UserService.getById(this.id_users);
-      this.form.patchValue(this.id_users);
+      //TODO: this.form.patchValue(this.id_users);
     } catch (error) {
       Swal.fire({
         title: 'Mistake!',
@@ -49,7 +49,7 @@ export class EditWorker {
 
   async onSubmit() {
     try {
-      await this.UserService.patch(this.id_users, this.form.value);
+      await this.UserService.update(this.id_users, this.form.value);
 
       Swal.fire({
         title: 'Updated!',

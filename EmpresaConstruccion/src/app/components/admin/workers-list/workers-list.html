@@ -1,0 +1,8 @@
+<div class="container">
+  <!-- cambiar empleados por ArrayUsers() una vez conectado con el back -->
+  @for (worker of ArrayUsers; track worker.id_users) {
+    <user_card [user]="worker"></user_card>
+  } @empty {
+    <p class="text-white">No workers found.</p>
+  }
+</div>

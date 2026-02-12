@@ -10,6 +10,14 @@ type LoginResponse = {
   user: IUser
 }
 
+
+type UpdateUser = {
+    name: string,
+    surname: string,
+    mail: string,
+    role: string
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -28,7 +36,6 @@ export class UserService {
     )
   }
 
-
   login(userLog: { email: string, password: string }) {
     // el firstValueFrom lo transforma en promesa:
     return firstValueFrom(
@@ -42,15 +49,17 @@ export class UserService {
     if (!token) return false
     return true
   }
-
-  update(id_users: string) {
+  
+  
+  update(id_users: string, updatedUser: UpdateUser) {
     return firstValueFrom
       (this.httpClient.patch<{ success: string }>(this.baseUrl, id_users));
   }
 
+
   getById(id_users: string) {
     return firstValueFrom(
-      this.httpClient.get<>(this.baseUrl);
-    )
+      this.httpClient.get(this.baseUrl)
+    );
   }
 }

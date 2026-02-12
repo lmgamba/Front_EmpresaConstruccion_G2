@@ -1,13 +1,14 @@
 import { Component, signal, inject, Input } from '@angular/core';
 import { UsersCard } from '../../../components/admin/user_card/user_card';
-import { WorkersList } from './workers-list/workers-list';
+import { WorkersList } from '../../../components/admin/workers-list/workers-list';
 import { IUser } from '../../../interfaces/iuser';
 import { UserService } from '../../../core/services/users';
+import { SiteCard } from "../../../components/admin/constructions/site-card/site-card";
 
 
 @Component({
   selector: 'app-workers',
-  imports: [WorkersList],
+  imports: [WorkersList, SiteCard],
   templateUrl: './workers.html',
   styleUrl: './workers.css',
 })

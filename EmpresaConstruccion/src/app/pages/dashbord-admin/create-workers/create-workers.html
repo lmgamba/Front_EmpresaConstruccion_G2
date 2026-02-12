@@ -1,26 +1,27 @@
 <div class="container">
-    <h2>Register</h2>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" formControlName="name" />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Surname</label>
-            <input type="text" class="form-control" formControlName="surname" />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Mail</label>
-            <input type="mail" class="form-control" formControlName="mail" />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control" formControlName="password" />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Role</label>
-            <input type="text" class="form-control" formControlName="role" />
-        </div>
-        <button type="submit" class="btn btn-info">Send</button>
-    </form>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <h2>Create New Worker</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" formControlName="name" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Surname</label>
+      <input type="text" class="form-control" formControlName="surname" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Mail</label>
+      <input type="mail" class="form-control" formControlName="mail" />
+    </div>
+    <!-- <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" formControlName="password" />
+    </div> -->
+    <div class="mb-3">
+      <label class="form-label">Role</label>
+      <input type="text" class="form-control" formControlName="role" />
+    </div>
+    <button type="submit" class="btn btn-info">Send</button>
+  </form>
 </div>
