@@ -2,6 +2,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './../../../core/services/users';
 import { Component, inject } from '@angular/core';
 import Swal from 'sweetalert2';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -13,8 +14,12 @@ import Swal from 'sweetalert2';
 })
 export class CreateWorkers {
 
+  router = inject(Router);
   UserService = inject(UserService);
   //injectamos el servicio
+
+  route = inject(ActivatedRoute);
+  // inyectamos ActivateRoute para leer el id que viene en la URL
 
   form: FormGroup = new FormGroup({
     name: new FormControl(),

@@ -1,0 +1,23 @@
+<div class="container">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <h2>Deactivate Worker</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" formControlName="name" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Surname</label>
+            <input type="text" class="form-control" formControlName="surname" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mail</label>
+            <input type="mail" class="form-control" formControlName="mail" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Role</label>
+            <input type="text" class="form-control" formControlName="role" />
+        </div>
+        <button type="submit" class="btn btn-info">Delete User</button>
+    </form>
+</div>

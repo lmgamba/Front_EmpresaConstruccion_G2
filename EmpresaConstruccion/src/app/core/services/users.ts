@@ -10,12 +10,20 @@ type LoginResponse = {
   user: IUser
 }
 
+type DeleteUser = {
+  name?: string,
+  surname?: string,
+  mail?: string,
+  role?: string,
+  active?: boolean
+}
 
 type UpdateUser = {
-    name: string,
-    surname: string,
-    mail: string,
-    role: string
+  name: string,
+  surname: string,
+  mail: string,
+  role: string
+  active: boolean
 }
 
 @Injectable({
@@ -49,17 +57,46 @@ export class UserService {
     if (!token) return false
     return true
   }
-  
-  
+
+
   update(id_users: string, updatedUser: UpdateUser) {
-    return firstValueFrom
-      (this.httpClient.patch<{ success: string }>(`${this.baseUrl}/users/`, id_users);
+    const token = localStorage.getItem('token');
+
+    return firstValueFrom(this.httpClient.patch<{ success: string }>(
+      `${this.baseUrl}/users/${id_users}`,
+      updatedUser,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    ));
   }
 
 
   getById(id_users: string) {
+    const token = localStorage.getItem('token');
+
     return firstValueFrom(
-      this.httpClient.get(this.baseUrl)
+      this.httpClient.get<IUser>(
+        `${this.baseUrl}/users/${id_users}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
     );
+  }
+
+  deactivate(id_users: string) {
+    const token = localStorage.getItem('token');
+    const payload: DeleteUser = { active: false };
+
+    return firstValueFrom(this.httpClient.patch<{ success: string }>(
+      `${this.baseUrl}/users/${id_users}`,
+      payload,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    ));
   }
 }

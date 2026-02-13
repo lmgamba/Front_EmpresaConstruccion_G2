@@ -12,7 +12,7 @@ import Swal from 'sweetalert2'
 })
 export class EditWorker {
 
-  UserService = inject(UserService);
+  userService = inject(UserService);
   route = inject(ActivatedRoute);
   // inyectamos ActivateRoute para leer el id que viene en la URL
   router = inject(Router);
@@ -33,7 +33,7 @@ export class EditWorker {
     // obtener id desde URL
 
     try {
-      const worker = await this.UserService.getById(this.id_users);
+      const worker = await this.userService.getById(this.id_users);
       //TODO: this.form.patchValue(this.id_users);
     } catch (error) {
       Swal.fire({
@@ -49,7 +49,7 @@ export class EditWorker {
 
   async onSubmit() {
     try {
-      await this.UserService.update(this.id_users, this.form.value);
+      await this.userService.update(this.id_users, this.form.value);
 
       Swal.fire({
         title: 'Updated!',
