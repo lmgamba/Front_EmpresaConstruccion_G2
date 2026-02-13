@@ -10,6 +10,7 @@ import { SiteCard } from './components/admin/constructions/site-card/site-card';
 import { Constructions } from './components/admin/constructions/constructions';
 import { EditWorker } from './pages/dashbord-admin/edit-worker/edit-worker';
 import { DeleteWorker } from './pages/dashbord-admin/delete-worker/delete-worker';
+import { Assigments } from './pages/assigments/assigments';
 
 
 export const routes: Routes = [
@@ -20,9 +21,11 @@ export const routes: Routes = [
     { path: 'dashboard_user', component: DashboardUser },
     { path: 'dashboard_admin/workers', component: Workers },
     { path: 'dashboard_admin/constructions', component: Constructions },
-    { path: 'dashboard_admin/create-worker', component: CreateWorkers },
-    { path: 'dashboard_admin/edit-workers', component: EditWorker },
-    { path: 'dashboard_admin/delete-worker', component: DeleteWorker },
+    { path: 'dashboard_admin/create-worker', component: CreateWorkers, canActivate: [authGuard] },
+    { path: 'dashboard_admin/edit-worker/:id_users', component: EditWorker },
+    { path: 'dashboard_admin/delete-worker/:id_users', component: DeleteWorker },
+    { path: 'dashboard_admin/assigments', component: Assigments }
+
 
 
     //TODO: añaadir  canActivate: [authGuard] a CreateWorkers cuando el back esté conectado

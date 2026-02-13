@@ -2,10 +2,13 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
 export const authGuard: CanActivateFn = (route, state) => {
+
+    
     const router = inject(Router);
 
     // lo que permite o no que entre a las paginas es el token que hay en el localstorage
     const token = localStorage.getItem('token')
+    
     // obtener usuario
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 

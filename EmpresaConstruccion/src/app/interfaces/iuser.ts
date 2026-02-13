@@ -4,7 +4,7 @@ export interface IUser {
     name: string;
     surname: string;
     mail: string;
-    password_hash: string;
+    password_hash?: string;
     role: string;
     created_at?: Date;
     status: boolean;

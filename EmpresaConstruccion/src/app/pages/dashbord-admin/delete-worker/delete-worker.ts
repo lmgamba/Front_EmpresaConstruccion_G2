@@ -11,17 +11,18 @@ import Swal from 'sweetalert2';
   styleUrl: './delete-worker.css',
 })
 export class DeleteWorker {
-  router = inject(Router)
-  route = inject(ActivatedRoute)
-  userService = inject(UserService)
+  router = inject(Router);
+  route = inject(ActivatedRoute);
+  userService = inject(UserService);
 
   id_users!: string;
+  
 
   form: FormGroup = new FormGroup({
     name: new FormControl(),
     surname: new FormControl(),
     mail: new FormControl(),
-    role: new FormControl()
+    role: new FormControl(),
   });
 
   async ngOnInit() {
@@ -35,13 +36,12 @@ export class DeleteWorker {
 
       // Deshabilitamos el formulario para que sea solo de lectura (opcional pero recomendado)
       this.form.disable();
-
     } catch (error) {
       Swal.fire({
         title: 'Mistake!',
         text: 'Could not load worker data',
         icon: 'error',
-        confirmButtonText: 'Ok'
+        confirmButtonText: 'Ok',
       });
     }
   }
@@ -50,12 +50,12 @@ export class DeleteWorker {
     // 1. Preguntar confirmación antes de borrar
     const result = await Swal.fire({
       title: 'Are you sure?',
-      text: "You are about to deactivate this worker!",
+      text: 'You are about to deactivate this worker!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, deactivate it!'
+      confirmButtonText: 'Yes, deactivate it!',
     });
 
     if (result.isConfirmed) {
@@ -66,18 +66,17 @@ export class DeleteWorker {
           title: 'Deactivated!',
           text: 'Worker deactivated successfully',
           icon: 'success',
-          confirmButtonText: 'Ok'
+          confirmButtonText: 'Ok',
         });
 
         // 3. Redirigir al panel de administración (importante tras borrar)
         this.router.navigate(['/dashboard_admin']);
-
       } catch (error) {
         Swal.fire({
           title: 'Mistake!',
           text: 'There was a problem deactivating the worker',
           icon: 'error',
-          confirmButtonText: 'Ok'
+          confirmButtonText: 'Ok',
         });
       }
     }

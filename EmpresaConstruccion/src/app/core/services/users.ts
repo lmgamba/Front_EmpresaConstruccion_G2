@@ -15,15 +15,15 @@ type DeleteUser = {
   surname?: string,
   mail?: string,
   role?: string,
-  active?: boolean
+  status?: boolean
 }
 
 type UpdateUser = {
-  name: string,
-  surname: string,
-  mail: string,
-  role: string
-  active: boolean
+  name?: string,
+  surname?: string,
+  mail?: string,
+  role?: string,
+  status?: boolean
 }
 
 @Injectable({
@@ -35,7 +35,7 @@ export class UserService {
   // para usar HttpCliente debe estar dentro del appconfig como provider
   private httpClient = inject(HttpClient);
 
-  private baseUrl = 'http://127.0.0.1:8000/';
+  private baseUrl = 'http://127.0.0.1:8000';
 
   register(newUser: IUser) {
     // el firstValueFrom lo transforma en promesa:
@@ -44,7 +44,7 @@ export class UserService {
     )
   }
 
-  login(userLog: { email: string, password: string }) {
+  login(userLog: { mail: string, password: string }) {
     // el firstValueFrom lo transforma en promesa:
     return firstValueFrom(
       this.httpClient.post<LoginResponse>(`${this.baseUrl}/auth/login`, userLog)
@@ -71,6 +71,7 @@ export class UserService {
     ));
   }
 
+  //-------------------- USERS------------------
 
   getById(id_users: string) {
     const token = localStorage.getItem('token');
@@ -87,13 +88,12 @@ export class UserService {
     );
   }
 
-  deactivate(id_users: string) {
+deactivate(id_users: string) {
     const token = localStorage.getItem('token');
-    const payload: DeleteUser = { active: false };
 
-    return firstValueFrom(this.httpClient.patch<{ success: string }>(
+    return firstValueFrom(this.httpClient.put<{ success: string }>(
       `${this.baseUrl}/users/${id_users}`,
-      payload,
+      { status: false },
       {
         headers: { Authorization: `Bearer ${token}` }
       }

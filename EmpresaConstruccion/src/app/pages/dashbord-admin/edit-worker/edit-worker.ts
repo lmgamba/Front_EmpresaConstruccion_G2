@@ -30,11 +30,13 @@ export class EditWorker {
 
   async ngOnInit() {
     this.id_users = this.route.snapshot.paramMap.get('id_users')!;
+    console.log(this.id_users)
     // obtener id desde URL
 
     try {
       const worker = await this.userService.getById(this.id_users);
-      //TODO: this.form.patchValue(this.id_users);
+      this.form.patchValue(worker);
+      
     } catch (error) {
       Swal.fire({
         title: 'Mistake!',

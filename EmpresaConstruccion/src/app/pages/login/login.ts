@@ -31,7 +31,7 @@ export class Login {
       //guardar TOKEN (en LocalStorage = espacio en el navegador). Para ello se usa localStorage.setItem(key: string, value:-)
       localStorage.setItem('token', response.token)
       //redireccion a la pagina con permisos -0> pag empleados
-      this.router.navigateByUrl('/empleados')
+      this.router.navigateByUrl('/dashboard_admin')
     } catch (error) {
       alert('Se ha producido un error')
     }

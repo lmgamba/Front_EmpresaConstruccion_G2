@@ -25,7 +25,8 @@ export class CreateWorkers {
     name: new FormControl(),
     surname: new FormControl(),
     mail: new FormControl(),
-    password: new FormControl(), //TODO: el admin no debe crear el password del worker, se asignará sola inicialmente
+    password: new FormControl(), 
+    //TODO: el admin no debe crear el password del worker, se asignará sola inicialmente
     role: new FormControl()
   });
 
