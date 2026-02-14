@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '../../core/services/users';
+import { AuthService } from '../../core/services/auth-service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class Register {
 
   router = inject(Router);
 
-  usersService = inject(UserService);
+  AuthService = inject(AuthService);
 
   registerFrom: FormGroup = new FormGroup({
     username: new FormControl(),
@@ -22,15 +23,20 @@ export class Register {
   });
 
   async onSubmit() {
-    //this.registerFrom.value = > valores del form
+    this.registerFrom.value
     try {
       //TODO 
-      //const response = await this.usersService.register(this.registerFrom.value);
-      //console.log(response)
+      const response = await this.AuthService.register(this.registerFrom.value);
+      console.log(response)
       //redireccion al login
       this.router.navigateByUrl('/login')
     } catch (error) {
-
+Swal.fire({
+                title: 'Mistake!',
+                text: 'There was a problem crating your account, please check the data and try again',
+                icon: 'error',
+                confirmButtonText: 'Ok',
+              });
     }
   }
 

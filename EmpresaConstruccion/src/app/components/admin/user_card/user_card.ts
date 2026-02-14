@@ -1,5 +1,5 @@
 import { Component, signal, inject, Input } from '@angular/core';
-import { UserService } from '../../../core/services/users';
+import { UserService } from '../../../core/services/users-service';
 import { IUser } from '../../../interfaces/iuser';
 
 @Component({

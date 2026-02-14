@@ -1,10 +1,9 @@
 export interface IConstruction {
-  id_constructions: number;
+  id_constructions?: number;
   name: string;
-  description: string;
+  description?: string;
   address: string;
-  latitude: number;
-  longitude: number;
-  status: string;
-
+  latitude?: number;
+  longitude?: number;
+  status?: string;  // 'active' 'next', 'completed'
 }

@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '../../core/services/users';
+import { AuthService } from '../../core/services/auth-service';
 import { Router, RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { Router, RouterLink } from '@angular/router';
 export class Login {
 
   router = inject(Router)
-  UsersService = inject(UserService);
+  AuthService = inject(AuthService);
 
 
   loginForm: FormGroup = new FormGroup({
@@ -25,15 +26,19 @@ export class Login {
     //this.registroFrom.value = > valores del form
     try {
       //TODO user service
-      const response = await this.UsersService.login(this.loginForm.value);
+      const response = await this.AuthService.login(this.loginForm.value);
       console.log(response)
 
-      //guardar TOKEN (en LocalStorage = espacio en el navegador). Para ello se usa localStorage.setItem(key: string, value:-)
       localStorage.setItem('token', response.token)
-      //redireccion a la pagina con permisos -0> pag empleados
+      //redireccion a la pagina correspondiente segun el rol
       this.router.navigateByUrl('/dashboard_admin')
     } catch (error) {
-      alert('Se ha producido un error')
+      Swal.fire({
+                title: 'Mistake!',
+                text: 'There was a problem logging in, please check your credentials and try again',
+                icon: 'error',
+                confirmButtonText: 'Ok',
+              });
     }
   }
 }

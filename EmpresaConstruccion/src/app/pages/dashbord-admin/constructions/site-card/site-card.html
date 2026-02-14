@@ -9,7 +9,7 @@
     </div>
     <div class="map-thumbnail">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Anonymous_map_of_New_York_City.jpg"
+        src="https://images.unsplash.com/photo-1586449480537-3a22cf98b04c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="Map"
       />
     </div>
@@ -17,7 +17,7 @@
 
   <div class="staffing-section">
     <div class="staffing-labels">
-      <span class="status-text warning">Understaffed</span>
+      <!-- <span class="status-text warning">Understaffed</span> -->
       <span class="count-text">4 Workers</span>
     </div>
     <!-- <div class="progress-bar-container">
@@ -36,7 +36,6 @@
 
       <div class="assigned-list">
         <div class="user-wrapper">
-          <!-- cambiar empleados por ArrayUsers() una vez conectado con el back -->
           @for (worker of ArrayUsers; track worker.id_users) {
             <user_card [user]="worker"></user_card>
           } @empty {
@@ -46,7 +45,7 @@
         </div>
 
         <div class="drop-zone">
-          <span>Clic here to add new Worker</span>
+          <span>+ Add Worker to this Construction</span>
         </div>
       </div>
     </div>

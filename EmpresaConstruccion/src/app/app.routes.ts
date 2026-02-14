@@ -5,30 +5,29 @@ import { DashboardUser } from './pages/dashboard-user/dashboard-user';
 import { Workers } from './pages/dashbord-admin/workers/workers';
 import { DashboardAdmin } from './pages/dashbord-admin/dashboard-admin';
 import { CreateWorkers } from './pages/dashbord-admin/create-workers/create-workers';
-import { authGuard } from './core/guards/auth-guards';
-import { SiteCard } from './components/admin/constructions/site-card/site-card';
-import { Constructions } from './components/admin/constructions/constructions';
+import { authGuard } from './core/guards/auth-guard';
+import { Constructions } from './pages/dashbord-admin/constructions/constructions';
 import { EditWorker } from './pages/dashbord-admin/edit-worker/edit-worker';
 import { DeleteWorker } from './pages/dashbord-admin/delete-worker/delete-worker';
 import { Assigments } from './pages/assigments/assigments';
+import { adminGuard } from './core/guards/admin-guard';
+import { userGuard } from './core/guards/user-guard';
 
 
 export const routes: Routes = [
-    // TODO: guards, 
+
     { path: 'register', component: Register },
-    { path: 'login', component: Login },
-    { path: 'dashboard_admin', component: DashboardAdmin },
+    { path: '', component: Login },
+    { path: 'dashboard_admin', component: DashboardAdmin, canActivate: [authGuard] },
     { path: 'dashboard_user', component: DashboardUser },
-    { path: 'dashboard_admin/workers', component: Workers },
-    { path: 'dashboard_admin/constructions', component: Constructions },
-    { path: 'dashboard_admin/create-worker', component: CreateWorkers, canActivate: [authGuard] },
+    { path: 'dashboard_user/logs', component: DashboardUser },
+    { path: 'dashboard_admin/workers', component: Workers, canActivate: [adminGuard] },
+    { path: 'dashboard_admin/constructions', component: Constructions, canActivate: [adminGuard] },
+    { path: 'dashboard_admin/create-worker', component: CreateWorkers, canActivate: [adminGuard] },
     { path: 'dashboard_admin/edit-worker/:id_users', component: EditWorker },
     { path: 'dashboard_admin/delete-worker/:id_users', component: DeleteWorker },
-    { path: 'dashboard_admin/assigments', component: Assigments }
-
-
-
-    //TODO: añaadir  canActivate: [authGuard] a CreateWorkers cuando el back esté conectado
+    { path: 'dashboard_admin/assigments', component: Assigments, canActivate: [userGuard] },
+    {path : '**', redirectTo: 'dashboard_admin'} // Redirige al dashboard para cualquier ruta no definida, debe redirigir a dashboard user si es user, o al login si no está autenticado
 
 
 

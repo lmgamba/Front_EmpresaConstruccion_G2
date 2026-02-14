@@ -2,8 +2,8 @@ import { Component, signal, inject, Input } from '@angular/core';
 import { UsersCard } from '../../../components/admin/user_card/user_card';
 import { WorkersList } from '../../../components/admin/workers-list/workers-list';
 import { IUser } from '../../../interfaces/iuser';
-import { UserService } from '../../../core/services/users';
-import { SiteCard } from "../../../components/admin/constructions/site-card/site-card";
+import { UserService } from '../../../core/services/users-service';
+import { SiteCard } from "../constructions/site-card/site-card";
 import { IConstruction } from '../../../interfaces/iconstruction';
 import { Navbar } from '../../../components/shared/navbar/navbar';
 import { RouterLink } from "@angular/router";
@@ -11,7 +11,7 @@ import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-workers',
-  imports: [WorkersList, SiteCard, Navbar, RouterLink],
+  imports: [WorkersList, SiteCard, RouterLink],
   templateUrl: './workers.html',
   styleUrl: './workers.css',
 })

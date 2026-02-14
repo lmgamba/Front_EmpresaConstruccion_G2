@@ -1,5 +1,5 @@
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from './../../../core/services/users';
+import { AuthService } from '../../../core/services/auth-service';
 import { Component, inject } from '@angular/core';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CreateWorkers {
 
   router = inject(Router);
-  UserService = inject(UserService);
+  AuthService = inject(AuthService);
   //injectamos el servicio
 
   route = inject(ActivatedRoute);
@@ -33,7 +33,7 @@ export class CreateWorkers {
   async onSubmit() {
     //this.form.value
     try {
-      const response = await this.UserService.register(this.form.value);
+      const response = await this.AuthService.register(this.form.value);
       // Resolución positiva
       Swal.fire({
         title: 'New worker!',

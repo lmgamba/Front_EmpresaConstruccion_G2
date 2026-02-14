@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { Workers } from './workers/workers';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { Navbar } from '../../components/shared/navbar/navbar';
 import { WorkersList } from '../../components/admin/workers-list/workers-list';
 import { IUser } from '../../interfaces/iuser';
 
@@ -36,7 +33,7 @@ interface FeedItem {
 
 @Component({
   selector: 'app-dashboard-admin',
-  imports: [Workers, Navbar, WorkersList],
+  imports: [WorkersList],
   templateUrl: './dashboard-admin.html',
   styleUrl: './dashboard-admin.css',
 })
