@@ -49,7 +49,7 @@
 }
 
 /* SIGNOUT AL FINAL */
-.signout {
+.footer {
   margin-top: auto; /* Empuja el botón al fondo del sidebar */
   padding: 15px 0;
   color: #64748b;

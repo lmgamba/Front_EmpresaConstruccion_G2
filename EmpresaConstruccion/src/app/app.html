@@ -5,11 +5,18 @@
       <span>BuildMaster</span>
     </div>
 
-    <app-navbar></app-navbar>
-
-    <div class="signout">
-      <span>Sign Out</span>
-    </div>
+    <!-- MOSTRAR CREAR CUENTA SOLO SI NO ESTÁ LOGUEADO -->
+    @if (!authService.isLogged()) {
+      <div class="footer">
+        <a routerLink="/register" class="create-account"> Create an account </a>
+      </div>
+    } @else {
+      <!-- MOSTRAR SIGN OUT SOLO SI ESTÁ LOGUEADO -->
+      <app-navbar></app-navbar>
+      <div class="footer signout" routerLink="/register">
+        <button (click)="logout()" class="btn-logout">Sign Out</button>
+      </div>
+    }
   </aside>
 
   <main class="content">

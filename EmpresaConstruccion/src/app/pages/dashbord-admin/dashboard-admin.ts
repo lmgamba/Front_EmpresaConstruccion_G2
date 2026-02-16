@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { WorkersList } from '../../components/admin/workers-list/workers-list';
 import { IUser } from '../../interfaces/iuser';
+import { AuthService } from '../../core/services/auth-service';
+import { UserService } from '../../core/services/users-service';
 
 
 interface Metric {
@@ -40,6 +42,23 @@ interface FeedItem {
 
 
 export class DashboardAdmin {
+
+  // Inject auth service
+  private authService = inject(AuthService);
+  private UserService = inject(UserService);
+
+  // Current user name
+  userId: number | null = this.authService.getCurrentUserId();
+  currentUser:IUser | null = null;
+    
+  // cargamos users
+  async loadUsers() {
+    try {
+      this.currentUser = await this.UserService.getById(this.userId!.toString());
+    } catch (error) {
+      console.error('Mistake loading users', error);
+    }
+  }
 
   // =========================
   // METRICS
