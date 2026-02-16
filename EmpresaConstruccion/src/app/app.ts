@@ -16,6 +16,5 @@ export class App {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['']);
   }
 }

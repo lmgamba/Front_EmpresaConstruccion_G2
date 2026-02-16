@@ -16,7 +16,9 @@
             >
               <option value="" disabled>Selecciona una obra...</option>
               @for (asig of myAssignments; track asig.id_assignments) {
-                <option [value]="asig.constructionsSites_id">Construction: {{ asig.name }}</option>
+                <option [value]="asig.constructionsSites_id">
+                  Construction: {{ asig.constructionsSites_id }}
+                </option>
               }
             </select>
           </div>

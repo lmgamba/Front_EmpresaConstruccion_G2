@@ -33,7 +33,7 @@ export class Register {
     } catch (error) {
 Swal.fire({
                 title: 'Mistake!',
-                text: 'There was a problem crating your account, please check the data and try again',
+                text: 'There was a problem crwating your account, please check the data and try again',
                 icon: 'error',
                 confirmButtonText: 'Ok',
               });

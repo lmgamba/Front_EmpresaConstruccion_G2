@@ -27,7 +27,7 @@ export class UserService {
 
   update(id_users: string, updatedUser: Partial<IUser>) {
     return firstValueFrom(
-      this.httpClient.patch<{ success: string }>(`${this.baseUrl}/${id_users}`, updatedUser)
+      this.httpClient.put<{ success: string }>(`${this.baseUrl}/${id_users}`, updatedUser)
     );
   }
 
