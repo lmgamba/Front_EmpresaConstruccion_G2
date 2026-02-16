@@ -18,17 +18,17 @@ import { Log } from './components/user/log/log';
 export const routes: Routes = [
 
     { path: 'register', component: Register },
-    { path: '', component: Login },
+    { path: '/login', component: Login },
     { path: 'dashboard_admin', component: DashboardAdmin, canActivate: [authGuard] },
     { path: 'dashboard_user', component: DashboardUser },
     { path: 'dashboard_user/logs', component: Log },
     { path: 'dashboard_admin/workers', component: Workers, canActivate: [adminGuard] },
-    { path: 'dashboard_admin/constructions', component: Constructions }, //canActivate: [adminGuard] },
+    { path: 'dashboard_admin/constructions', component: Constructions , canActivate: [adminGuard] },
     { path: 'dashboard_admin/create-worker', component: CreateWorkers, canActivate: [adminGuard] },
     { path: 'dashboard_admin/edit-worker/:id_users', component: EditWorker },
     { path: 'dashboard_admin/delete-worker/:id_users', component: DeleteWorker },
-    { path: 'dashboard_admin/assignments', component: Assignments }, //canActivate: [userGuard] },
-    { path: '**', redirectTo: 'dashboard_admin' } // Redirige al dashboard para cualquier ruta no definida, debe redirigir a dashboard user si es user, o al login si no está autenticado
+    { path: 'dashboard_admin/assignments', component: Assignments , canActivate: [userGuard] },
+    { path: '**', redirectTo: '/login' } // Redirige al dashboard para cualquier ruta no definida, debe redirigir a dashboard user si es user, o al login si no está autenticado
 
 
 

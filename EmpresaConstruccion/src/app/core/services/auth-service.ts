@@ -40,10 +40,10 @@ export class AuthService {
 
     try {
       const payloadBase64 = token.split('.')[1];
-      const payloadJson = atob(payloadBase64); 
-      const payload = JSON.parse(payloadJson); 
+      const payloadJson = atob(payloadBase64);
+      const payload = JSON.parse(payloadJson);
       
-      return payload.role || null; 
+      return payload.role || null;
     } catch (e) {
       console.error("Error al obtener el rol del token:", e);
       return null;
@@ -51,16 +51,17 @@ export class AuthService {
   }
 
   // saber el id del ususario logueado
-getCurrentUserId(): number | null {
-  const userData = localStorage.getItem('user_data'); // O como lo llames
-  if (userData) {
-    const user = JSON.parse(userData);
-    return user.id_users; // Asegúrate de que el nombre coincida con tu objeto
+  getCurrentUserId(): number | null {
+    const userData = localStorage.getItem('user_data'); // O como lo llames
+    if (userData) {
+      const user = JSON.parse(userData);
+      return user.id_users; // Asegúrate de que el nombre coincida con tu objeto
+    }
+    return null;
   }
-  return null;
-}
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('user_token');
+    localStorage.removeItem('user_data');
   }
 }

@@ -1,33 +1,36 @@
 <nav class="nav">
-  <a
-    class="nav-item"
-    routerLink="/dashboard_admin"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >Overview</a
-  >
-  <a
-    class="nav-item"
-    routerLink="/dashboard_admin/constructions"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >Projects</a
-  >
-  <a
-    class="nav-item"
-    routerLink="/dashboard_admin/workers"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >Workers</a
-  >
-  <a
-    class="nav-item"
-    routerLink="/dashboard_admin/assignments"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >Assignments</a
-  >
+  @if (isAdmin()) {
+    <a
+      class="nav-item"
+      routerLink="/dashboard_admin"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Overview</a
+    >
+    <a
+      class="nav-item"
+      routerLink="/dashboard_admin/constructions"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Projects</a
+    >
+    <a
+      class="nav-item"
+      routerLink="/dashboard_admin/workers"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Workers</a
+    >
+    <a
+      class="nav-item"
+      routerLink="/dashboard_admin/assignments"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Assignments</a
+    >
+  }
 
+  @if (isUser()) {}
   <a
     class="nav-item"
     routerLink="/dashboard_user/logs"
