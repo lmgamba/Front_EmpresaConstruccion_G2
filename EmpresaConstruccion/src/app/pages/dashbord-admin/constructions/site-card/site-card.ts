@@ -19,13 +19,13 @@ export class SiteCard {
 
 
   @Input() construction: IConstruction = {
-  id_constructions: 0,
-  name: "",
-  description: "",
-  address: "",
-  latitude: 0,
-  longitude: 0
-};
+    id_constructions: 0,
+    name: "",
+    description: "",
+    address: "",
+    latitude: 0,
+    longitude: 0
+  };
 
 
 
