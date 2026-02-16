@@ -20,8 +20,22 @@
     [routerLinkActiveOptions]="{ exact: true }"
     >Workers</a
   >
-  <a class="nav-item">Assignments</a>
-  <a class="nav-item">Reports</a>
+  <a
+    class="nav-item"
+    routerLink="/dashboard_admin/assignments"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Assignments</a
+  >
+
+  <a
+    class="nav-item"
+    routerLink="/dashboard_user/logs"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >Reports</a
+  >
+
   <a class="nav-item">Settings</a>
 </nav>
 ⁠

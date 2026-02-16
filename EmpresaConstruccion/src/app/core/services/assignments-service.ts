@@ -23,6 +23,13 @@ export class AssignmentsService {
     );
   }
 
+  // obtener asignaciones por usuario
+  getAssignmentsByUserId(userId: number) {
+    return firstValueFrom(
+      this.HttpClient.get<IAssignments[]>(`${this.baseUrl}/user/${userId}`)
+    );
+  }
+
   // crear asignaciones
   create(assignment: Omit<IAssignments, 'id_assignments' | 'status'>) {
     return firstValueFrom(

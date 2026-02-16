@@ -50,8 +50,17 @@ export class AuthService {
     }
   }
 
+  // saber el id del ususario logueado
+getCurrentUserId(): number | null {
+  const userData = localStorage.getItem('user_data'); // O como lo llames
+  if (userData) {
+    const user = JSON.parse(userData);
+    return user.id_users; // Asegúrate de que el nombre coincida con tu objeto
+  }
+  return null;
+}
+
   logout() {
     localStorage.removeItem('token');
-    // Si guardaste algo más, límpialo aquí también
   }
 }
