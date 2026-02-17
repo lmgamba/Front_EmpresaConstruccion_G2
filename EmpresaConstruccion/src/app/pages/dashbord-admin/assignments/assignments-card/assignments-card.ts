@@ -29,8 +29,8 @@ export class AssignmentsCard {
     id_assignments: 0,
     date_start: new Date(),
     date_finish: new Date(),
-    status: 'active',
-    user_id: '',
+    status: 1,
+    users_id: '',
     constructionsSites_id: ''
   };
 
@@ -38,7 +38,7 @@ export class AssignmentsCard {
   @Output() finish = new EventEmitter<number>();
 
   onFinish() {
-    if (this.assignment.status === 'active') {
+    if (this.assignment.status === 1) {
       this.finish.emit(this.assignment.id_assignments);
     }
   }

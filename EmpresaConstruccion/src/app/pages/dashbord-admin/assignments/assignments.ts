@@ -31,7 +31,7 @@ export class Assignments implements OnInit {
 
   // formulario
   registerForm: FormGroup = new FormGroup({
-    user_id: new FormControl('', Validators.required),
+    users_id: new FormControl('', Validators.required),
     constructionsSites_id: new FormControl('', Validators.required),
     date_start: new FormControl('', Validators.required),
     date_finish: new FormControl(''), //opcional

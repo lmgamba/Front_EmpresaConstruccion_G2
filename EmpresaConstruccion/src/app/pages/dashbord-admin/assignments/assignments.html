@@ -9,8 +9,8 @@
         <!-- Select Usuario -->
         <div class="mb-3">
             <label class="form-label">Usuario</label>
-            <select class="form-control" formControlName="user_id">
-                <option value="" disabled selected>Selecciona un usuario</option>
+            <select class="form-control" formControlName="users_id">
+                <option value="" disabled>Select user</option>
                 <option *ngFor="let user of ArrayUsers" [value]="user.id_users">
                     {{ user.name }} {{ user.surname }}
                 </option>
@@ -21,7 +21,7 @@
         <div class="mb-3">
             <label class="form-label">Obra</label>
             <select class="form-control" formControlName="constructionsSites_id">
-                <option value="" disabled selected>Selecciona una obra</option>
+                <option value="" disabled>Select construction</option>
                 <option *ngFor="let c of ArrayConstructions" [value]="c.id_constructions">
                     {{ c.name }}
                 </option>

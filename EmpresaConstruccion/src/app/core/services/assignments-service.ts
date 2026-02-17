@@ -10,6 +10,7 @@ export class AssignmentsService {
   private HttpClient = inject(HttpClient);
   private baseUrl = 'http://127.0.0.1:8000/assignments';
 
+
   // obtener todas las asignaciones
   getAll(status?: string) {
     let params = new HttpParams();

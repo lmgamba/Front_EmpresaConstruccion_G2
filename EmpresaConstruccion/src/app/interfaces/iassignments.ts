@@ -2,7 +2,7 @@ export interface IAssignments {
     id_assignments: number;
     date_start: Date;
     date_finish: Date;
-    status: string; //'active' o 'finish'
-    user_id: string;
+    status: number; //'1 active' o '0 finish'
+    users_id: string;
     constructionsSites_id: string;
 }

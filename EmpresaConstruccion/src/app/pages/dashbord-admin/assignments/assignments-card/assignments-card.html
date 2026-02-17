@@ -1,1 +1,7 @@
-<p>assignments-card works!</p>
+<p>
+    Estado: {{ assignment.status === 1 ? 'Active' : 'Finished' }}
+</p>
+
+<button [disabled]="assignment.status !== 1" (click)="onFinish()" class="btn btn-warning">
+    Finalizar
+</button>
