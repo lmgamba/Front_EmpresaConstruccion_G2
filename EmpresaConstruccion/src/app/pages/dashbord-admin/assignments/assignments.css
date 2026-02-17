@@ -1,0 +1,117 @@
+/* Fondo pantalla completa */
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px 0;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+        url('https://images.unsplash.com/photo-1614366324821-cfa7713a5163?q=80&w=1626&auto=format&fit=crop') no-repeat center center fixed;
+    background-size: cover;
+    box-sizing: border-box;
+}
+
+/* Contenedor principal */
+.container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #1a2632;
+    color: #ffffff;
+    padding: 2rem;
+    border-radius: 14px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Título */
+h2 {
+    text-align: center;
+    margin-bottom: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Separador */
+hr {
+    border: none;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 2rem 0;
+}
+
+/* Labels */
+.form-label {
+    color: #e0e0e0;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+/* Inputs y selects */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.92);
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    width: 100%;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.35);
+    transform: scale(1.01);
+}
+
+/* Espaciado entre campos */
+.mb-3 {
+    margin-bottom: 1.2rem;
+}
+
+/* Botón principal */
+.btn-info {
+    width: 100%;
+    padding: 0.75rem;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, #00bcd4, #0097a7);
+    color: white;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.btn-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 188, 212, 0.4);
+}
+
+/* Espacio entre cards */
+app-assignments-card {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 1.5rem;
+        margin: 0 15px;
+    }
+}

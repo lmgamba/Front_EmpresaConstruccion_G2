@@ -1,1 +1,55 @@
-<p>assignments works!</p>
+<div class="container">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <h2>Create New Assignment</h2>
+
+    <!-- Formulario de nueva asignación -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <!-- Select Usuario -->
+        <div class="mb-3">
+            <label class="form-label">Usuario</label>
+            <select class="form-control" formControlName="user_id">
+                <option value="" disabled selected>Selecciona un usuario</option>
+                <option *ngFor="let user of ArrayUsers" [value]="user.id_users">
+                    {{ user.name }} {{ user.surname }}
+                </option>
+            </select>
+        </div>
+
+        <!-- Select Obra -->
+        <div class="mb-3">
+            <label class="form-label">Obra</label>
+            <select class="form-control" formControlName="constructionsSites_id">
+                <option value="" disabled selected>Selecciona una obra</option>
+                <option *ngFor="let c of ArrayConstructions" [value]="c.id_constructions">
+                    {{ c.name }}
+                </option>
+            </select>
+        </div>
+
+        <!-- Fecha Inicio -->
+        <div class="mb-3">
+            <label class="form-label">Fecha Inicio</label>
+            <input type="date" class="form-control" formControlName="date_start" />
+        </div>
+
+        <!-- Fecha Fin -->
+        <div class="mb-3">
+            <label class="form-label">Fecha Fin</label>
+            <input type="date" class="form-control" formControlName="date_finish" />
+        </div>
+
+        <!-- Botón Asignar -->
+        <button type="submit" class="btn btn-info">Asignar</button>
+    </form>
+
+    <hr class="my-4">
+
+    <!-- Lista de assignments usando AssignmentCard -->
+    @for (a of assignments; track a.id_assignments) {
+    <app-assignments-card [assignment]="a" [ArrayUsers]="ArrayUsers" [ArrayConstructions]="ArrayConstructions"
+        (finish)="finishAssignment($event)">
+    </app-assignments-card>
+    }
+</div>

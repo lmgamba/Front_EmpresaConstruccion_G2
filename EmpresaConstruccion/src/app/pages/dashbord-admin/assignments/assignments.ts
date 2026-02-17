@@ -26,7 +26,7 @@ export class Assignments implements OnInit {
   // Datos para select
   ArrayUsers: IUser[] = [];
   ArrayConstructions: IConstruction[] = [];
-  assigments: IAssignments[] = [];
+  assignments: IAssignments[] = [];
 
 
   // formulario
@@ -65,7 +65,7 @@ export class Assignments implements OnInit {
   // cargamos assignments
   async loadAssignments() {
     try {
-      this.assigments = await this.AssignmentsService.getAll();
+      this.assignments = await this.AssignmentsService.getAll();
     } catch (error) {
       console.error('Mistake loading assignments', error);
     }
