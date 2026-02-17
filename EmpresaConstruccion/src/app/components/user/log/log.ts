@@ -6,6 +6,7 @@ import { AuthService } from '../../../core/services/auth-service';
 import { AssignmentsService } from '../../../core/services/assignments-service';
 import { LogCard } from '../log-card/log-card';
 import Swal from 'sweetalert2';
+import { ILogs } from '../../../interfaces/ilogs';
 
 @Component({
   selector: 'app-log',
@@ -18,7 +19,7 @@ export class Log {
   private logService = inject(LogService);
   private authService = inject(AuthService);
   private assigmentsService = inject(AssignmentsService);
-
+  private constructionSitesService = inject(AssignmentsService); 
   arrayLogs: any[] = [];
   myAssignments: any[] = []; 
   currentUserId!: number;
@@ -70,4 +71,60 @@ async loadData() {
       Swal.fire('Error', 'No se pudo crear el log', 'error');
     }
   }
+
+  
+
+
+  // PARA PRUEBA
+  public arrayLogsTest: ILogs[] = [
+  {
+    id_logs: 1,
+    description: 'Se ha detectado una fisura estructural en el pilar B-12 tras el desencofrado. Se requiere revisión del ingeniero de guardia.',
+    type: 'Alert',
+    date_register: new Date('2024-05-20T10:30:00'),
+    users_id: 10,
+    constructionsSites_id: 101
+  },
+  {
+    id_logs: 2,
+    description: 'Vaciado de hormigón completado en la losa del tercer nivel. Todo el proceso se realizó según el cronograma previsto.',
+    type: 'Avance',
+    date_register: new Date('2024-05-21T14:15:00'),
+    users_id: 12,
+    constructionsSites_id: 102
+  },
+  {
+    id_logs: 3,
+    description: 'Falta de suministro eléctrico en la zona norte de la obra. El equipo de mantenimiento está revisando el generador principal.',
+    type: 'Alert',
+    date_register: new Date('2024-05-21T16:45:00'),
+    users_id: 8,
+    constructionsSites_id: 101
+  },
+  {
+    id_logs: 4,
+    description: 'Finalización de la instalación de tuberías de desagüe en el sótano. Iniciando pruebas de presión mañana a primera hora.',
+    type: 'Avance',
+    date_register: new Date('2024-05-22T09:00:00'),
+    users_id: 15,
+    constructionsSites_id: 105
+  },
+  {
+    id_logs: 5,
+    description: 'Reporte semanal: Se han recibido todos los materiales de carpintería metálica. Almacenados correctamente en bodega.',
+    type: 'Report',
+    date_register: new Date('2024-05-22T11:20:00'),
+    users_id: 10,
+    constructionsSites_id: 103
+  },
+  {
+    id_logs: 6,
+    description: 'Retraso en la entrega de materiales por huelga de transporte externa. Se reprograman las tareas de albañilería para el lunes.',
+    type: 'Alert',
+    date_register: new Date('2024-05-23T08:10:00'),
+    users_id: 12,
+    constructionsSites_id: 102
+  }
+];
+
 }

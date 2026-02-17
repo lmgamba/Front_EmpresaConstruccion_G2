@@ -3,59 +3,57 @@
     <h1>Panel de Logs</h1>
   </div>
 
-  <div class="d-flex gap-4">
-    <div class="flex-shrink-0" style="width: 350px">
-      <div class="card bg-dark text-white p-4 border-secondary shadow">
-        <h2 class="h4 mb-4 text-info">New Log</h2>
-        <form [formGroup]="logForm" (ngSubmit)="onSubmit()">
-          <div class="mb-3">
-            <label class="form-label">Construction Assigned</label>
-            <select
-              class="form-select bg-dark text-white border-secondary"
-              formControlName="constructionsSites_id"
-            >
-              <option value="" disabled>Selecciona una obra...</option>
-              @for (asig of myAssignments; track asig.id_assignments) {
-                <option [value]="asig.constructionsSites_id">
-                  Construction: {{ asig.constructionsSites_id }}
-                </option>
-              }
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Tipo de Log</label>
-            <select class="form-select bg-dark text-white border-secondary" formControlName="type">
-              <option value="Report">Report (Informativo)</option>
-              <option value="Alert">Alert (Urgente)</option>
-            </select>
-          </div>
-
-          <div class="mb-4">
-            <label class="form-label">Description</label>
-            <textarea
-              class="form-control bg-dark text-white border-secondary"
-              formControlName="description"
-              rows="5"
-            ></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-info w-100 fw-bold" [disabled]="logForm.invalid">
-            PUBLISH LOG
-          </button>
-        </form>
+  <div class="left-container">
+    <h2 class="h4 mb-4 text-info">New Log</h2>
+    <form [formGroup]="logForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Construction Assigned</label>
+        <select
+          class="form-select bg-dark text-white border-secondary"
+          formControlName="constructionsSites_id"
+        >
+          <option value="" disabled>Selecciona una obra...</option>
+          @for (asig of myAssignments; track asig.id_assignments) {
+            <option [value]="asig.constructionsSites_id">
+              Construction: {{ asig.constructionsSites_id }}
+            </option>
+          }
+        </select>
       </div>
+
+      <div class="mb-3">
+        <label class="form-label">Tipo de Log</label>
+        <select class="form-select bg-dark text-white border-secondary" formControlName="type">
+          <option value="Report">Update (Informative)</option>
+          <option value="Alert">Alert (Urgent)</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Description</label>
+        <textarea
+          class="form-control bg-dark text-white border-secondary"
+          formControlName="description"
+          rows="5"
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-info w-100 fw-bold" [disabled]="logForm.invalid">
+        PUBLISH LOG
+      </button>
+    </form>
+  </div>
+
+  <div class="site-container">
+    <div class="site-head">
+      <h2>My Reports</h2>
     </div>
-
-    <div class="flex-grow-1">
-      <h2 class="text-white mb-3">My Logs</h2>
-      <div class="scroll-area" style="max-height: 70vh; overflow-y: auto">
-        @for (log of arrayLogs; track log.id_logs) {
-          <app-log-card [log]="log"></app-log-card>
-        } @empty {
-          <div class="alert alert-secondary">No logs yet.</div>
-        }
-      </div>
+    <div class="scroll-area inside-container" style="max-height: 70vh; overflow-y: auto">
+      @for (log of arrayLogs; track log.id_logs) {
+        <app-log-card [log]="log"></app-log-card>
+      } @empty {
+        <div class="alert alert-secondary">No logs yet.</div>
+      }
     </div>
   </div>
 </div>
