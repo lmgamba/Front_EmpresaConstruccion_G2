@@ -9,11 +9,12 @@ import { IUser } from '../../../interfaces/iuser';
 import { IConstruction } from '../../../interfaces/iconstruction';
 import { IAssignments } from '../../../interfaces/iassignments';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-assignments',
   standalone: true,
-  imports: [AssignmentsCard, ReactiveFormsModule],
+  imports: [AssignmentsCard, ReactiveFormsModule, CommonModule],
   templateUrl: './assignments.html',
   styleUrl: './assignments.css',
 })

@@ -32,7 +32,7 @@ export const routes: Routes = [
   { path: 'dashboard_admin/create-worker', component: CreateWorkers, canActivate: [adminGuard] },
   { path: 'dashboard_admin/edit-worker/:id_users', component: EditWorker },
   { path: 'dashboard_admin/delete-worker/:id_users', component: DeleteWorker },
-  { path: 'dashboard_admin/assignments', component: Assignments, canActivate: [userGuard] },
+  { path: 'dashboard_admin/assignments', component: Assignments, canActivate: [adminGuard] },
   { path: 'dashboard_admin/settings', component: SettingAdmin },
   { path: '**', redirectTo: 'dashboard_admin' }, // Redirige al dashboard para cualquier ruta no definida, debe redirigir a dashboard user si es user, o al login si no está autenticado
 ];
