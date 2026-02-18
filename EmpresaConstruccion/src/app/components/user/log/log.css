@@ -9,7 +9,7 @@
 
   /* Configuramos el Grid */
   display: grid;
-  grid-template-columns: 600px 1fr; /* Izquierda fija, derecha flexible */
+  grid-template-columns: 400px 1fr; /* Izquierda fija, derecha flexible */
   grid-template-areas:
     'header header'
     'left   content';
@@ -43,11 +43,13 @@
   padding: 20px;
   border-radius: 12px;
   height: fit-content;
+  max-width: 400px;
 }
 
 /* CONTENEDOR DE SITIOS (Derecha) */
 .site-container {
   grid-area: content;
+  width: 100%;
 }
 
 .site-head {

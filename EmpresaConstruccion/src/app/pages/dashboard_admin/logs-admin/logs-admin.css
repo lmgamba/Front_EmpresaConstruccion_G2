@@ -1,0 +1,71 @@
+.admin-view {
+  grid-template-columns: 1fr !important; /* El admin usa todo el ancho */
+  grid-template-areas: 'header' 'content' !important;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.dashboard-container {
+  padding: 30px;
+  margin: 5px auto;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* HEADER (Ocupa las dos columnas) */
+.dashboard-header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+}
+
+.filter-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(30, 41, 59, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.admin-log-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-meta {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-top: 5px;
+}
+
+.admin-meta strong {
+  color: #38bdf8;
+}
+
+.no-data {
+  text-align: center;
+  padding: 100px;
+  color: #64748b;
+}
+
+.no-data i {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 15px;
+}

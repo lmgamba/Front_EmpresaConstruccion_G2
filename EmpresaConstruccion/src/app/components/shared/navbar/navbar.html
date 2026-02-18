@@ -28,16 +28,38 @@
       [routerLinkActiveOptions]="{ exact: true }"
       >Assignments</a
     >
+    <a
+      class="nav-item"
+      routerLink="/dashboard_admin/logs"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Reports</a
+    >
   }
 
-  @if (isUser()) {}
-  <a
-    class="nav-item"
-    routerLink="/dashboard_user/logs"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >Reports</a
-  >
+  @if (isUser()) {
+    <a
+      class="nav-item"
+      routerLink="/dashboard_user"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Overview</a
+    >
+    <a
+      class="nav-item"
+      routerLink="/dashboard_user/assignments"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Assignments</a
+    >
+    <a
+      class="nav-item"
+      routerLink="/dashboard_user/logs"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Reports</a
+    >
+  }
 
   <a
     class="nav-item"

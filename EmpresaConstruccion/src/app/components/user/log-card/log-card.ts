@@ -13,7 +13,12 @@ import { DatePipe, CommonModule } from '@angular/common';
 export class LogCard {
   @Input() log!: ILogs;
 
+  editMode: boolean = false;
+
   onEdit() {
+
+    this.editMode = true;
+    
     console.log('Editando log:', this.log.id_logs);
   }
 }

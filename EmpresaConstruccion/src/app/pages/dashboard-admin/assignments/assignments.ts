@@ -1,7 +1,7 @@
 
-import { AssignmentsService } from './../../../core/services/assignments-service';
-import { ConstructionService } from './../../../core/services/constructions-service';
-import { UserService } from './../../../core/services/users-service';
+import { AssignmentsService } from '../../../core/services/assignments-service';
+import { ConstructionService } from '../../../core/services/constructions-service';
+import { UserService } from '../../../core/services/users-service';
 import { Component, inject, OnInit } from '@angular/core';
 import { AssignmentsCard } from './assignments-card/assignments-card';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';

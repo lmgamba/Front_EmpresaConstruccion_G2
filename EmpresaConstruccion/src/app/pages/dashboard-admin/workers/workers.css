@@ -88,6 +88,15 @@
   gap: 20px; /* Espacio entre las fichas */
   padding: 0; /* Quitamos padding de bootstrap si molesta */
 }
+.site-footer {
+  margin-top: 25px;
+  padding-top: 5px;
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
 
 /* Ajuste para que las cards ocupen todo el ancho de su celda de grid */
 site-card {

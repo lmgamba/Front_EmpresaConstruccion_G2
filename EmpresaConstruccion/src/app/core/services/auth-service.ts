@@ -50,18 +50,29 @@ export class AuthService {
     }
   }
 
-  // saber el id del ususario logueado
-  getCurrentUserId(): number | null {
-    const userData = localStorage.getItem('user_data'); // O como lo llames
-    if (userData) {
-      const user = JSON.parse(userData);
-      return user.id_users; // Asegúrate de que el nombre coincida con tu objeto
-    }
+// saber el id del usuario logueado
+getCurrentUserId(): number | null {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  try {
+    // 1. Decodificamos el payload del token (igual que haces en getRole)
+    const payloadBase64 = token.split('.')[1];
+    const payloadJson = atob(payloadBase64);
+    const payload = JSON.parse(payloadJson);
+    
+    // 2. Extraemos el ID. 
+    // Revisa tu backend: si en el token pusiste 'id_users', usa payload.id_users
+    // Si usaste el estándar de FastAPI, suele ser payload.sub
+    return payload.id_users || payload.sub || null;
+    
+  } catch (e) {
+    console.error("Error al decodificar el ID del token:", e);
     return null;
   }
+}
 
   logout() {
-    localStorage.removeItem('user_token');
-    localStorage.removeItem('user_data');
+    localStorage.removeItem('token');
   }
 }

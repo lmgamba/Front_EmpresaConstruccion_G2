@@ -26,6 +26,16 @@ export class ConstructionService {
     );
   }
 
+
+   /**
+   * ver obra por id
+   */
+  getConstructionByUserId(id: number) {
+    return firstValueFrom(
+      this.httpClient.get<IConstruction>(`${this.baseUrl}/${id}`)
+    );
+  }
+
   /**
    * Crear una obra nueva (solo admin)
    */
