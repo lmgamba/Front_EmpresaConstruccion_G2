@@ -17,6 +17,7 @@ import { DailyReport } from './pages/dashboard-user/daily-report/daily-report';
 import { SettingAdmin } from './pages/dashbord-admin/setting/setting';
 import { SettingUser } from './pages/dashboard-user/setting/setting';
 import { Log } from './components/user/log/log';
+import { AssignmentUser } from './pages/dashboard-user/assignment-user/assignment-user';
 
 export const routes: Routes = [
   { path: 'register', component: Register },
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: 'dashboard_user/logs', component: Log },
   { path: 'dashboard-user/build-flow', component: BuildFlow },
   { path: 'dashboard-user/report', component: DailyReport },
+  { path: 'dashboard-user/assignments', component: AssignmentUser },
   { path: 'dashboard-user/settings', component: SettingUser },
   { path: 'dashboard_admin/workers', component: Workers, canActivate: [adminGuard] },
   { path: 'dashboard_admin/constructions', component: Constructions, canActivate: [adminGuard] },
