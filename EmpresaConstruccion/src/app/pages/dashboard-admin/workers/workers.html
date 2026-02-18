@@ -51,19 +51,24 @@
         class="scroll-area container"
         style="max-height: 70vh; overflow-y: auto"
         [ArrayUsers]="filteredWorkers()"
+        [editOptions]="true"
       ></workers-list>
     </div>
     <div class="site-footer">
       <button class="btn primary" [routerLink]="['/dashboard_admin/create-worker']">
         + Create Worker
       </button>
+
+      <button class="btn primary btn-detete" [routerLink]="['/dashboard_admin/create-worker']">
+        + Delete Worker
+      </button>
     </div>
   </div>
 
   <div class="site-container">
     <div class="site-head">
-      <h2>Active Constructions</h2>
-      <span class="badge-total">4 Sites</span>
+      <h2>Constructions supervised by you</h2>
+      <span class="badge-total"> {{ totalConstructions() }}</span>
     </div>
     <div class="scroll-area container" style="max-height: 70vh; overflow-y: auto">
       @for (site of arrayConstructions(); track site.id_constructions) {

@@ -18,6 +18,7 @@ import { SettingAdmin } from './pages/dashboard-admin/setting/setting';
 import { SettingUser } from './pages/dashboard-user/setting/setting';
 import { Log } from './components/user/log/log';
 import { AssignmentUser } from './pages/dashboard-user/assignment-user/assignment-user';
+import { LogsAdmin } from './pages/dashboard_admin/logs-admin/logs-admin';
 
 export const routes: Routes = [
   { path: 'register', component: Register },
@@ -31,6 +32,7 @@ export const routes: Routes = [
   { path: 'dashboard-user/settings', component: SettingUser },
   { path: 'dashboard_admin/workers', component: Workers, canActivate: [adminGuard] },
   { path: 'dashboard_admin/constructions', component: Constructions, canActivate: [adminGuard] },
+  { path: 'dashboard_admin/logs', component: LogsAdmin, canActivate: [adminGuard]  },
   { path: 'dashboard_admin/create-worker', component: CreateWorkers, canActivate: [adminGuard] },
   { path: 'dashboard_admin/edit-worker/:id_users', component: EditWorker },
   { path: 'dashboard_admin/delete-worker/:id_users', component: DeleteWorker },
