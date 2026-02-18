@@ -1,27 +1,62 @@
 <div class="container">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <h2>Deactivate Worker</h2>
+
+  <h2>Delete Worker</h2>
+
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <!-- SELECT USER -->
     <div class="mb-3">
-      <label class="form-label">Name</label>
-      <input type="text" class="form-control" formControlName="name" />
+      <label class="form-label">Select Worker</label>
+
+      <select class="form-control" formControlName="selectedUser" (change)="onUserSelect($event)">
+
+        <option value="" disabled selected>
+          Select a worker
+        </option>
+
+        @for (user of ArrayUsers(); track user.id_users) {
+
+        <option [value]="user.id_users">
+          {{ user.name }} {{ user.surname }}
+        </option>
+
+        }
+
+      </select>
     </div>
+
+
+    <!-- ID -->
+    @if (selectedUser()) {
+
     <div class="mb-3">
-      <label class="form-label">Surname</label>
-      <input type="text" class="form-control" formControlName="surname" />
+      <label class="form-label">ID</label>
+
+      <input type="text" class="form-control" [value]="selectedUser()?.id_users" readonly />
     </div>
+
+    <!-- MAIL -->
     <div class="mb-3">
       <label class="form-label">Mail</label>
-      <input type="mail" class="form-control" formControlName="mail" />
+
+      <input type="text" class="form-control" [value]="selectedUser()?.mail" readonly />
     </div>
+
+    <!-- ROLE -->
     <div class="mb-3">
       <label class="form-label">Role</label>
-      <input type="text" class="form-control" formControlName="role" />
+
+      <input type="text" class="form-control" [value]="selectedUser()?.role" readonly />
     </div>
-    <!-- <div class="mb-3">
-      <label class="form-label">Status</label>
-      <input type="text" class="form-control" formControlName="status" />
-    </div> -->
-    <button type="submit" class="btn btn-info">Delete User</button>
+
+    }
+
+
+    <!-- DELETE BUTTON -->
+    <button type="submit" class="btn btn-danger" [disabled]="!selectedUser()">
+      Delete Worker
+    </button>
+
   </form>
+
 </div>
