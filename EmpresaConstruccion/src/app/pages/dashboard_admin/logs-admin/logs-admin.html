@@ -1,0 +1,38 @@
+<div class="dashboard-container admin-view">
+  <div class="dashboard-header">
+    <div>
+      <h1>Admin Control: Global Reports</h1>
+      <p class="text-info">Managing reports for your assigned construction sites</p>
+    </div>
+
+    <div class="filter-tools">
+      <button type="button" (click)="sortBy('date_register')" class="btn btn-info">By Date</button>
+      <button type="button" (click)="sortBy('constructionsSites_id')" class="btn btn-info">
+        By Site
+      </button>
+      <button type="button" (click)="sortBy('userSurname')" class="btn btn-info">By Surname</button>
+    </div>
+  </div>
+
+  <div class="full-content">
+    <div class="logs-grid">
+      <!-- add filteredLogs wheb connecting to back -->
+      @for (log of filteredLogs(); track log.id_logs) {
+        <div class="admin-log-wrapper">
+          <app-log-card [log]="log"></app-log-card>
+
+          <div class="admin-meta text-end px-3">
+            <small
+              >Created by: <strong>{{ log.userSurname }} </strong> {{ log.userName }}</small
+            >
+          </div>
+        </div>
+      } @empty {
+        <div class="no-data">
+          <i class="bi bi-clipboard-x"></i>
+          <p>No activity records found for your sites.</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>
