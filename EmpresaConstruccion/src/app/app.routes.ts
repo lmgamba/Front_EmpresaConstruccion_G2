@@ -12,8 +12,6 @@ import { DeleteWorker } from './pages/dashboard-admin/delete-worker/delete-worke
 import { Assignments } from './pages/dashboard-admin/assignments/assignments';
 import { adminGuard } from './core/guards/admin-guard';
 import { userGuard } from './core/guards/user-guard';
-import { BuildFlow } from './pages/dashboard-user/build-flow/build-flow';
-import { DailyReport } from './pages/dashboard-user/daily-report/daily-report';
 import { SettingAdmin } from './pages/dashboard-admin/setting/setting';
 import { SettingUser } from './pages/dashboard-user/setting/setting';
 import { Log } from './components/user/log/log';
@@ -25,9 +23,7 @@ export const routes: Routes = [
   { path: 'dashboard_admin', component: DashboardAdmin, canActivate: [authGuard] },
   { path: 'dashboard_user', component: DashboardUser },
   { path: 'dashboard_user/logs', component: Log },
-  { path: 'dashboard-user/build-flow', component: BuildFlow },
-  { path: 'dashboard-user/report', component: DailyReport },
-  { path: 'dashboard-user/assignments', component: AssignmentUser },
+  { path: 'dashboard-user/assignments', component: AssignmentUser, canActivate: [userGuard] },
   { path: 'dashboard-user/settings', component: SettingUser },
   { path: 'dashboard_admin/workers', component: Workers, canActivate: [adminGuard] },
   { path: 'dashboard_admin/constructions', component: Constructions, canActivate: [adminGuard] },

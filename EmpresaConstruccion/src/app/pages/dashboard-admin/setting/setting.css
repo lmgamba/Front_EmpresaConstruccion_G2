@@ -1,201 +1,91 @@
-/* --- LAYOUT GENERAL --- */
-.settings-container {
-  padding: 2rem;
-  color: #f9fafb; /* Blanco suave */
-  background-color: #111827; /* Fondo muy oscuro (Main BG) */
+:host {
+  display: block;
+  background-color: #0f172a;
   min-height: 100vh;
 }
 
-.page-header {
-  margin-bottom: 2rem;
+h4 {
+  color: white;
 }
 
-.page-header h2 {
-  margin: 0;
-  font-size: 1.8rem;
-}
 .text-secondary {
-  color: #9ca3af;
-  font-size: 0.95rem;
-}
-.text-sm {
-  font-size: 0.85rem;
+  color: #94a3b8;
 }
 
-/* --- GRID SYSTEM --- */
-.settings-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
+/* --- 2. Tarjetas (Cards)  --- */
+.card {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  transition: transform 0.2s ease-in-out;
 }
 
-/* En pantallas grandes, sidebar a la izquierda (300px) y resto a la derecha */
-@media (min-width: 1024px) {
-  .settings-grid {
-    grid-template-columns: 300px 1fr;
-  }
-}
-
-/* --- TARJETAS (Dark Cards) --- */
-.dark-card {
-  background-color: #1f2937; /* Gris azulado oscuro */
-  border-radius: 12px;
-  padding: 2rem;
-  border: 1px solid #374151; /* Borde sutil */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.mb-4 {
-  margin-bottom: 1.5rem;
-}
-.mt-3 {
-  margin-top: 1rem;
-  color: white;
-}
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
-/* --- PERFIL SIDEBAR --- */
-.center-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.avatar-container {
-  position: relative;
-  width: 120px;
-  height: 120px;
-}
-
-.avatar-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 4px solid #111827; /* Borde del color del fondo para separar */
-}
-
-.btn-icon-edit {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: #2563eb;
-  border: none;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  transition: transform 0.2s;
-}
-
-.btn-icon-edit:hover {
-  transform: scale(1.1);
-}
-
-.badge-role {
-  background-color: rgba(16, 185, 129, 0.2); /* Verde transparente */
-  color: #10b981;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  margin-top: 5px;
-}
-
-/* --- FORMULARIOS --- */
-.card-header h3 {
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  font-size: 1.2rem;
-  border-bottom: 1px solid #374151;
+.card-header {
+  border-bottom: 1px solid #334155;
   padding-bottom: 1rem;
+}
+
+/* --- 3. Avatar del Usuario --- */
+.rounded-circle.bg-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
+  border: 4px solid #1e293b;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
 }
 
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+/* --- 4. Inputs del Formulario --- */
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
 }
 
-@media (min-width: 768px) {
-  .form-row {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.form-group {
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  margin-bottom: 0.5rem;
-  color: #d1d5db;
-  font-size: 0.9rem;
-}
-
-/* Inputs con estilo oscuro */
-.dark-input {
-  background-color: #111827;
-  border: 1px solid #374151;
-  color: white;
-  padding: 0.75rem 1rem;
+.form-control {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  color: #f8fafc;
+  padding: 12px 16px;
   border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s;
+  transition: all 0.3s ease;
 }
 
-.dark-input:focus {
+/* Estado Focus */
+.form-control:focus {
+  background-color: #0f172a;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
   outline: none;
-  border-color: #2563eb; /* Azul al hacer clic */
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
-/* --- BOTONES --- */
-.form-actions {
-  display: flex;
-  margin-top: 1.5rem;
-}
-
-.form-actions.right {
-  justify-content: flex-end;
-}
-
+/* --- 5. Botón de Guardar --- */
 .btn-primary {
-  background-color: #2563eb;
-  color: white;
+  background: linear-gradient(to right, #3b82f6, #2563eb);
   border: none;
-  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  padding: 10px 24px;
   border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+  transition: all 0.2s ease;
 }
 
 .btn-primary:hover {
-  background-color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 10px -2px rgba(59, 130, 246, 0.4);
 }
 
-.btn-outline {
-  background-color: transparent;
-  border: 1px solid #4b5563;
-  color: #d1d5db;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  cursor: pointer;
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* --- 6. Badge (Rol de usuario) --- */
+.badge {
+  padding: 8px 16px;
   font-weight: 500;
-  transition: all 0.2s;
-}
-
-.btn-outline:hover {
-  border-color: #f9fafb;
-  color: #f9fafb;
+  letter-spacing: 1px;
+  border-radius: 20px;
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.2);
 }

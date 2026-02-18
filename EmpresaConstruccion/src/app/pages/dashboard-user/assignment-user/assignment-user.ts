@@ -1,86 +1,73 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IAssignments } from '../../../interfaces/iassignments';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { IConstruction } from '../../../interfaces/iconstruction';
+import { CardAssignment } from './card-assignment/card-assignment';
 
 @Component({
   selector: 'app-assignment-user',
-  imports: [CommonModule],
+  imports: [CommonModule, CardAssignment],
   templateUrl: './assignment-user.html',
   styleUrl: './assignment-user.css',
 })
-export class AssignmentUser {
-  // Usamos tu interfaz oficial
-  assignments: IAssignments[] = [];
-  userId: string = ''; // Ahora es string según tu interfaz
+export class AssignmentUser implements OnInit {
+  myAssignments: IAssignments[] = [];
+  allConstructions: IConstruction[] = [];
+  userId: number = 0;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    const userString = localStorage.getItem('user');
-    if (userString) {
-      // Asumimos que el ID en localStorage viene como número o string, lo convertimos a string
-      this.userId = JSON.parse(userString).id.toString();
+    // 1. buscamos el TOKEN
+    const token = localStorage.getItem('token');
 
-      // this.cargarDatosPrueba();
-      this.obtenerAsignacionesReales(); // Descomentar luego
+    if (token) {
+      // 2. Decodificamos el token (es un JWT, tiene 3 partes separadas por puntos)
+      // La parte 1 (índice 1) es el payload con los datos
+      try {
+        const payloadBase64 = token.split('.')[1];
+        const base64 = payloadBase64.replace(/-/g, '+').replace(/_/g, '/');
+        const payloadJson = atob(payloadBase64);
+        const payload = JSON.parse(payloadJson);
+
+        // 3. Sacamos el ID del payload
+        this.userId = Number(payload.id_users || payload.sub || payload.user_id);
+
+        console.log('ID recuperado del token:', this.userId);
+
+        // 4. Cargamos los datos
+        this.loadConstructions();
+        this.loadMyAssignments();
+      } catch (error) {
+        console.error('Error al decodificar el token:', error);
+      }
+    } else {
+      console.error('No hay token guardado. Haz login de nuevo.');
     }
   }
 
-  // --- DATOS DE PRUEBA (Adaptados a la Interfaz) ---
-  cargarDatosPrueba() {
-    this.assignments = [
-      {
-        id_assignments: 1,
-        date_start: new Date('2026-02-12'), // La interfaz pide Date, usamos new Date()
-        date_finish: new Date('2026-02-27'),
-        status: 1,
-        users_id: this.userId,
-        constructionsSites_id: '2', // String
-      },
-      {
-        id_assignments: 2,
-        date_start: new Date('2025-08-27'),
-        date_finish: new Date('2025-10-12'),
-        status: 1,
-        users_id: this.userId,
-        constructionsSites_id: '2', // String
-      },
-      {
-        id_assignments: 3,
-        date_start: new Date('2023-01-21'),
-        date_finish: new Date('2024-08-11'),
-        status: 0,
-        users_id: this.userId,
-        constructionsSites_id: '1', // String
-      },
-      {
-        id_assignments: 5,
-        date_start: new Date('2024-04-14'),
-        // @ts-ignore: Si tu interfaz obliga a que date_finish NO sea nulo,
-        // tendrás que poner una fecha futura o cambiar la interfaz a "date_finish?: Date"
-        // Aquí simulo que es una fecha lejana o null si la interfaz lo permitiera
-        date_finish: new Date('2099-12-31'),
-        status: 1,
-        users_id: this.userId,
-        constructionsSites_id: '2', // String
-      },
-    ];
+  loadMyAssignments() {
+    // Petición al backend para sacar SOLO las asignaciones del usuario 18
+    this.http
+      .get<IAssignments[]>(`http://127.0.0.1:8000/assignments/user/${this.userId}`)
+      .subscribe({
+        next: (data) => {
+          console.log('Asignaciones recibidas:', data);
+          this.myAssignments = data;
+        },
+        error: (e) => console.error('Error cargando assignments:', e),
+      });
   }
 
-  // --- CONEXIÓN REAL ---
-  obtenerAsignacionesReales() {
-    // GET /assignments/user/{id}
-    const apiUrl = `http://127.0.0.1:8000/assignments/user/${this.userId}`;
-
-    this.http.get<IAssignments[]>(apiUrl).subscribe({
+  loadConstructions() {
+    // Necesitamos TODAS las obras para saber qué nombre tiene la obra ID 2
+    this.http.get<IConstruction[]>('http://127.0.0.1:8000/constructions').subscribe({
       next: (data) => {
-        // NOTA: Al venir de una API, las fechas suelen ser Strings (ISO).
-        // Angular las pinta bien igual, pero si necesitas operar con ellas,
-        // tendrías que mapearlas: date_start: new Date(item.date_start)
-        this.assignments = data;
+        console.log('Obras recibidas:', data);
+        this.allConstructions = data;
       },
-      error: (err) => console.error('Error:', err),
+      error: (e) => console.error('Error cargando obras:', e),
     });
   }
 }

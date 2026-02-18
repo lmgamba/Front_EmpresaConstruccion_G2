@@ -1,0 +1,26 @@
+<div class="card dark-card mb-3">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h4 class="card-title m-0 text-white">🏗️ {{ constructionName }}</h4>
+
+      <span class="badge" [ngClass]="assignment.status === 1 ? 'bg-success' : 'bg-danger'">
+        {{ assignment.status === 1 ? 'Activa' : 'Finalizada' }}
+      </span>
+    </div>
+
+    <div class="row text-secondary">
+      <div class="col-6">
+        <small>Inicio:</small>
+        <p class="text-white fw-bold">{{ assignment.date_start | date: 'dd/MM/yyyy' }}</p>
+      </div>
+      <div class="col-6 text-end">
+        <small>Fin:</small>
+        @if (assignment.date_finish) {
+          <p class="text-white fw-bold">{{ assignment.date_finish | date: 'dd/MM/yyyy' }}</p>
+        } @else {
+          <p class="text-warning fw-bold">En curso 🚧</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

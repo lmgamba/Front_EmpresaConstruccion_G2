@@ -1,55 +1,17 @@
-<div class="assignments-container">
-  <div class="page-header">
-    <h2>📅 Mis Asignaciones</h2>
-    <p class="text-secondary">Obras en las que estás asignado actualmente.</p>
-  </div>
+<div class="container p-4">
+  <h2 class="text-white mb-4">Mis Asignaciones</h2>
 
-  <div class="assignments-grid">
-    @for (item of assignments; track item.id_assignments) {
-      <div class="card dark-card assignment-card" [class.finished]="item.status === 0">
-        <div class="card-top">
-          <span class="site-id-badge">🏗️ Obra ID: {{ item.constructionsSites_id }}</span>
+  @if (myAssignments.length === 0) {
+    <div class="alert alert-info mt-3">
+      📭 No tienes asignaciones activas (o se están cargando).
+    </div>
+  }
 
-          @if (item.status === 1) {
-            <span class="status-badge active">🟢 En Curso</span>
-          } @else {
-            <span class="status-badge finished">🔴 Finalizado</span>
-          }
-        </div>
-
-        <div class="card-body">
-          <h3 class="construction-title">
-            Proyecto de Construcción #{{ item.constructionsSites_id }}
-          </h3>
-
-          <div class="timeline-box">
-            <div class="date-group">
-              <span class="label">Fecha Inicio</span>
-              <span class="date-value">{{ item.date_start | date: 'dd MMM yyyy' }}</span>
-            </div>
-
-            <div class="timeline-line"></div>
-
-            <div class="date-group right">
-              <span class="label">Fecha Fin</span>
-              <span class="date-value">
-                {{ item.date_finish ? (item.date_finish | date: 'dd MMM yyyy') : '🚧 Pendiente' }}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card-footer">
-          @if (item.status === 1) {
-            <button class="btn-primary full-width">📝 Registrar Parte Diario</button>
-          } @else {
-            <button class="btn-outline full-width">👁️ Ver Historial</button>
-          }
-        </div>
-      </div>
-    } @empty {
-      <div class="empty-state">
-        <p>📭 No tienes ninguna asignación registrada.</p>
+  <div class="row mt-3">
+    @for (item of myAssignments; track item.id_assignments) {
+      <div class="col-md-6 col-lg-4">
+        <app-user-assignment-card [assignment]="item" [ArrayConstructions]="allConstructions">
+        </app-user-assignment-card>
       </div>
     }
   </div>
