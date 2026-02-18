@@ -1,8 +1,28 @@
-<div class="container">
-  <!-- cambiar empleados por ArrayUsers() una vez conectado con el back -->
+<div class="workers-list-container">
   @for (worker of ArrayUsers; track worker.id_users) {
-    <user_card [user]="worker"></user_card>
+    <div class="worker-item">
+      <user_card [user]="worker"></user_card>
+
+      @if (editOptions) {
+        <div class="worker-actions">
+          <button
+            class="action-btn edit"
+            [routerLink]="['/dashboard_admin/edit-worker', worker.id_users]"
+            title="Edit Worker"
+          >
+            ✎
+          </button>
+          <button
+            class="action-btn delete"
+            [routerLink]="['/dashboard_admin/delete-worker', worker.id_users]"
+            title="Delete Worker"
+          >
+            🗑
+          </button>
+        </div>
+      }
+    </div>
   } @empty {
-    <p class="text-white">No workers found.</p>
+    <p class="empty-msg">No workers found.</p>
   }
 </div>

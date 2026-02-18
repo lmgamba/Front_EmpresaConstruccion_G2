@@ -42,7 +42,7 @@
       <span class="badge-total">4 Sites</span>
     </div>
     <div class="container">
-      @for (site of ArrayConstructions; track site.id_constructions) {
+      @for (site of arrayConstructions(); track site.id_constructions) {
         <site-card [construction]="site"></site-card>
       } @empty {
         <p class="text-white">No workers found.</p>
