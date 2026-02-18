@@ -1,0 +1,86 @@
+<div class="site-card">
+  <div class="site-header">
+    <div class="site-info">
+      <div class="title-row">
+        <h2 class="site-title">{{ construction.name }}</h2>
+        <span class="badge-urgent">{{ construction.status }}</span>
+      </div>
+      <p class="site-location">📍 {{ construction.address }}</p>
+    </div>
+
+    @if (!showDetails()) {
+      <div class="map-thumbnail">
+        <img
+          src="https://images.unsplash.com/photo-1586449480537-3a22cf98b04c?q=80&w=1170&auto=format&fit=crop"
+          alt="Map"
+        />
+      </div>
+    }
+  </div>
+
+  <div class="staffing-section">
+    <div class="staffing-labels">
+      <span class="count-text">
+        {{ UsersbyConstruction.length }}
+        {{ UsersbyConstruction.length === 1 ? 'Worker' : 'Workers' }}
+      </span>
+    </div>
+  </div>
+
+  @if (!showDetails()) {
+    <div class="team-section">
+      <p class="section-label">ASSIGNED TEAM</p>
+      <div class="assigned-list">
+        @for (worker of UsersbyConstruction; track worker.id_users) {
+          <div class="user-item-container">
+            <user_card [user]="worker"></user_card>
+            <button class="btn-remove" (click)="removeWorker(worker.id_users)">×</button>
+          </div>
+        } @empty {
+          <p class="text-white opacity-50">No workers assigned yet.</p>
+        }
+        <div class="drop-zone">
+          <button class="btn assign" routerLink="/dashboard_admin/assignments">
+            + Assign Worker to this Construction
+          </button>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="details-section">
+      <p class="section-label">SITE DETAILS & LOCATION</p>
+      <div class="full-map-container">
+        @if (construction.latitude && construction.longitude) {
+          <iframe
+            width="100%"
+            height="100%"
+            style="border: 0"
+            loading="lazy"
+            allowfullscreen
+            [src]="mapUrl"
+          >
+          </iframe>
+          <div class="map-overlay">
+            <p>Coordinates: {{ construction.latitude }}, {{ construction.longitude }}</p>
+          </div>
+        } @else {
+          <div class="no-map-placeholder">
+            <p>Coordenadas no disponibles</p>
+          </div>
+        }
+      </div>
+
+      <div class="site-description">
+        <p>
+          {{ construction.description || 'No description provided for this construction site.' }}
+        </p>
+      </div>
+    </div>
+  }
+
+  <div class="site-footer">
+    <a href="#" class="details-link" (click)="toggleDetails($event)">
+      {{ showDetails() ? '← Back to Team' : 'View Details & Map' }}
+    </a>
+  </div>
+</div>

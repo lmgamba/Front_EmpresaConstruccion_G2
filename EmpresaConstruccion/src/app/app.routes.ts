@@ -17,6 +17,7 @@ import { DailyReport } from './pages/dashboard-user/daily-report/daily-report';
 import { SettingAdmin } from './pages/dashbord-admin/setting/setting';
 import { SettingUser } from './pages/dashboard-user/setting/setting';
 import { Log } from './components/user/log/log';
+import { LogsAdmin } from './pages/dashboard_admin/logs-admin/logs-admin';
 
 export const routes: Routes = [
 
@@ -25,6 +26,7 @@ export const routes: Routes = [
     { path: 'dashboard_admin', component: DashboardAdmin },//, canActivate: [authGuard] },
     { path: 'dashboard_user', component: DashboardUser },
     { path: 'dashboard_user/logs', component: Log },
+    { path: 'dashboard_admin/logs', component: LogsAdmin },
     { path: 'dashboard_admin/workers', component: Workers },//, canActivate: [adminGuard] },
     { path: 'dashboard_admin/constructions', component: Constructions },//, canActivate: [adminGuard] },
     { path: 'dashboard_admin/create-worker', component: CreateWorkers },//, canActivate: [adminGuard] },

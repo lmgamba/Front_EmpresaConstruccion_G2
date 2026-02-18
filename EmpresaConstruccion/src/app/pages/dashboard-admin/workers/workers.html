@@ -1,0 +1,82 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Worker Management</h1>
+    <div class="btn-corner">
+      <button class="btn primary">+ New Project</button>
+      <button class="btn btn-info">Publish changes</button>
+    </div>
+  </div>
+
+  <div class="left-container">
+    <div class="left-head">
+      <h2>Available Workers</h2>
+      <span class="badge-total"> {{ totalAvailable() }} Available / {{ totalBusy() }} Busy </span>
+    </div>
+    <div class="filter-section">
+      <div class="input-group mb-4 search-bar">
+        <span class="input-group-text search-icon"> 🔍 </span>
+        <input
+          type="text"
+          class="form-control search-input"
+          placeholder="Search by name..."
+          (input)="onSearch($event)"
+        />
+      </div>
+
+      <div class="filter-buttons">
+        <button
+          (click)="setFilter('Available')"
+          [class.active]="filterStatus() === 'Available'"
+          class="btn btn-filter"
+        >
+          Available
+        </button>
+        <button
+          (click)="setFilter('Busy')"
+          [class.active]="filterStatus() === 'Busy'"
+          class="btn btn-filter"
+        >
+          Busy
+        </button>
+        <button
+          (click)="setFilter('All')"
+          [class.active]="filterStatus() === 'All'"
+          class="btn btn-filter"
+        >
+          All
+        </button>
+      </div>
+
+      <workers-list
+        class="scroll-area container"
+        style="max-height: 70vh; overflow-y: auto"
+        [ArrayUsers]="filteredWorkers()"
+      ></workers-list>
+    </div>
+    <div class="site-footer">
+      <button class="btn primary" [routerLink]="['/dashboard_admin/create-worker']">
+        + Create Worker
+      </button>
+    </div>
+  </div>
+
+  <div class="site-container">
+    <div class="site-head">
+      <h2>Active Constructions</h2>
+      <span class="badge-total">4 Sites</span>
+    </div>
+    <div class="scroll-area container" style="max-height: 70vh; overflow-y: auto">
+      @for (site of arrayConstructions(); track site.id_constructions) {
+        <site-card
+          [construction]="site"
+          [UsersbyConstruction]="getUsersByConstruction(site.id_constructions!)"
+          [allAssignments]="allAssignments()"
+          (dataChanged)="loadAdminData()"
+        >
+        </site-card>
+      } @empty {
+        <p class="text-white">No workers found.</p>
+      }
+    </div>
+  </div>
+</div>
