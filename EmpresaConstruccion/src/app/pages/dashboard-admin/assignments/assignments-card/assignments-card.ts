@@ -8,7 +8,7 @@ import { IAssignments } from '../../../../interfaces/iassignments';
 @Component({
   selector: 'app-assignments-card',
   standalone: true,
-  imports: [UsersCard, SiteCard],
+  imports: [],
   templateUrl: './assignments-card.html',
   styleUrl: './assignments-card.css',
 })

@@ -43,7 +43,7 @@
       <span class="badge-total">{{ totalConstructions() }}</span>
     </div>
 
-    <div class="container">
+    <div class="scroll-area container" style="max-height: 70vh; overflow-y: auto">
       @for (site of arrayConstructions(); track site.id_constructions) {
         <site-card
           [construction]="site"

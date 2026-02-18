@@ -9,7 +9,7 @@
 
   /* Configuramos el Grid */
   display: grid;
-  grid-template-columns: 600px 1fr; /* Izquierda fija, derecha flexible */
+  grid-template-columns: calc(100% - 850px) 1fr; /* Izquierda fija, derecha flexible */
   grid-template-areas:
     'header header'
     'left   content';

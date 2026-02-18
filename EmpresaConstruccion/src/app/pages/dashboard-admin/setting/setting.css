@@ -1,91 +1,15 @@
-:host {
-  display: block;
-  background-color: #0f172a;
-  min-height: 100vh;
-}
+.avatar-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #334155;
+  color: #e2e8f0;
+  font-size: 2.5rem;
+  font-weight: bold;
 
-h4 {
-  color: white;
-}
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.text-secondary {
-  color: #94a3b8;
-}
-
-/* --- 2. Tarjetas (Cards)  --- */
-.card {
-  background-color: #1e293b;
-  border: 1px solid #334155;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-  border-radius: 16px;
-  transition: transform 0.2s ease-in-out;
-}
-
-.card-header {
-  border-bottom: 1px solid #334155;
-  padding-bottom: 1rem;
-}
-
-/* --- 3. Avatar del Usuario --- */
-.rounded-circle.bg-success {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  border: 4px solid #1e293b;
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
-}
-
-/* --- 4. Inputs del Formulario --- */
-.form-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-}
-
-.form-control {
-  background-color: #0f172a;
-  border: 1px solid #334155;
-  color: #f8fafc;
-  padding: 12px 16px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-/* Estado Focus */
-.form-control:focus {
-  background-color: #0f172a;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
-  outline: none;
-}
-
-/* --- 5. Botón de Guardar --- */
-.btn-primary {
-  background: linear-gradient(to right, #3b82f6, #2563eb);
-  border: none;
-  font-weight: 600;
-  padding: 10px 24px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
-  transition: all 0.2s ease;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 10px -2px rgba(59, 130, 246, 0.4);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-/* --- 6. Badge (Rol de usuario) --- */
-.badge {
-  padding: 8px 16px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  border-radius: 20px;
-  background-color: rgba(59, 130, 246, 0.1);
-  color: #60a5fa;
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  border: 3px solid #0f172a;
 }

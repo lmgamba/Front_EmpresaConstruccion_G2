@@ -29,7 +29,7 @@ export class Register {
       const response = await this.AuthService.register(this.registerFrom.value);
       console.log(response)
       //redireccion al login
-      this.router.navigateByUrl('/login')
+      this.router.navigateByUrl('dashboard')
     } catch (error) {
 Swal.fire({
                 title: 'Mistake!',

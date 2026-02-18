@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Router, Routes } from '@angular/router';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { DashboardUser } from './pages/dashboard-user/dashboard-user';
@@ -16,13 +16,35 @@ import { SettingAdmin } from './pages/dashboard-admin/setting/setting';
 import { SettingUser } from './pages/dashboard-user/setting/setting';
 import { Log } from './components/user/log/log';
 import { AssignmentUser } from './pages/dashboard-user/assignment-user/assignment-user';
-import { LogsAdmin } from './pages/dashboard_admin/logs-admin/logs-admin';
+import { LogsAdmin } from './pages/dashboard-admin/logs-admin/logs-admin';
+import { AuthService } from './core/services/auth-service';
+import { inject } from '@angular/core';
+
+
+// Esta función decide el destino sin cargar componentes intermedios
+const dashboardRedirect = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  const role = authService.getRole(); // Asegúrate de que esto devuelva 'admin' o 'operario'
+
+  if (role === 'admin') return 'dashboard_admin';
+  if (role === 'user') return 'dashboard_user';
+  
+  return ''; // Si no hay rol, vuelve al login
+};
 
 export const routes: Routes = [
   { path: 'register', component: Register },
-  { path: '', component: Login },
+  { path: 'login', component: Login },
+  // RUTA DINÁMICA: No tiene componente, solo redirige
+  { 
+    path: 'dashboard', 
+    redirectTo: dashboardRedirect, 
+    pathMatch: 'full' 
+  },
+
   { path: 'dashboard_admin', component: DashboardAdmin, canActivate: [authGuard] },
-  { path: 'dashboard_user', component: DashboardUser },
+  { path: 'dashboard_user', component: DashboardUser, canActivate: [authGuard] },
   { path: 'dashboard_user/logs', component: Log },
   { path: 'dashboard-user/assignments', component: AssignmentUser, canActivate: [userGuard] },
   { path: 'dashboard-user/settings', component: SettingUser },
@@ -34,5 +56,5 @@ export const routes: Routes = [
   { path: 'dashboard_admin/delete-worker/:id_users', component: DeleteWorker },
   { path: 'dashboard_admin/assignments', component: Assignments, canActivate: [adminGuard] },
   { path: 'dashboard_admin/settings', component: SettingAdmin },
-  { path: '**', redirectTo: 'dashboard_admin' }, // Redirige al dashboard para cualquier ruta no definida, debe redirigir a dashboard user si es user, o al login si no está autenticado
+  { path: '**', redirectTo: 'dashboard' }, // Redirige al dashboard para cualquier ruta no definida, debe redirigir a dashboard user si es user, o al login si no está autenticado
 ];

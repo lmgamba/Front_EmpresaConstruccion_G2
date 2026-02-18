@@ -1,197 +1,129 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal, computed, ChangeDetectorRef } from '@angular/core';
 import { WorkersList } from '../../components/admin/workers-list/workers-list';
 import { IUser } from '../../interfaces/iuser';
+import { IConstruction } from '../../interfaces/iconstruction';
+import { IAssignments } from '../../interfaces/iassignments';
 import { AuthService } from '../../core/services/auth-service';
 import { UserService } from '../../core/services/users-service';
-
-
-interface Metric {
-  title: string;
-  value: string;
-  subtext: string;
-}
-
-interface Worker {
-  id: number;
-  name: string;
-  role: string;
-  initials: string;
-  available: boolean;
-}
-
-interface Project {
-  id: number;
-  name: string;
-  location: string;
-  completion: number;
-  status: 'On Track' | 'Delayed';
-}
-
-interface FeedItem {
-  id: number;
-  time: string;
-  message: string;
-}
+import { ConstructionService } from '../../core/services/constructions-service';
+import { AssignmentsService } from '../../core/services/assignments-service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-admin',
-  imports: [WorkersList],
+  standalone: true,
+  imports: [WorkersList, RouterLink],
   templateUrl: './dashboard-admin.html',
   styleUrl: './dashboard-admin.css',
 })
-
-
-export class DashboardAdmin {
-
-  // Inject auth service
+export class DashboardAdmin implements OnInit {
+  // --- INYECCIONES ---
   private authService = inject(AuthService);
-  private UserService = inject(UserService);
+  private userService = inject(UserService);
+  private constructionService = inject(ConstructionService);
+  private assignmentsService = inject(AssignmentsService);
+  private cdr = inject(ChangeDetectorRef);
 
-  // Current user name
-  userId: number | null = this.authService.getCurrentUserId();
-  currentUser:IUser | null = null;
-    
-  // cargamos users
-  async loadUsers() {
-    try {
-      this.currentUser = await this.UserService.getById(this.userId!.toString());
-    } catch (error) {
-      console.error('Mistake loading users', error);
-    }
-  }
+  // --- SIGNALS DE ESTADO (DATOS BRUTOS) ---
+  allWorkers = signal<IUser[]>([]);
+  allConstructions = signal<IConstruction[]>([]);
+  allAssignments = signal<IAssignments[]>([]);
+  currentUser = signal<IUser | null>(null);
 
-  // =========================
-  // METRICS
-  // =========================
+  // --- SIGNALS COMPUTADOS (EVITAN EL TIMEOUT) ---
+  
+  // 1. Proyectos con estadísticas pre-calculadas para la tabla
+  projectsWithStats = computed(() => {
+    const constructions = this.allConstructions();
+    const assignments = this.allAssignments();
 
-  metrics: Metric[] = [
+    return constructions.map(project => {
+      // Filtrar asignaciones activas para este proyecto específico
+      const assigned = assignments.filter(a => 
+        Number(a.constructionsSites_id) === Number(project.id_constructions) && 
+        Number(a.status) === 1
+      );
+
+      return {
+        ...project,
+        workerCount: assigned.length,
+        // Lógica de progreso ejemplo: 20% por trabajador, máximo 100%
+        completion: Math.min(assigned.length * 20, 100)
+      };
+    });
+  });
+
+  // 2. Métricas de la parte superior
+  metrics = computed(() => [
     {
       title: 'Active Projects',
-      value: '12',
-      subtext: '+2 from last month'
+      value: this.allConstructions().length.toString(),
+      subtext: 'Across all locations'
     },
     {
       title: 'On-site Workers',
-      value: '45',
-      subtext: '90% deployment rate today'
+      value: this.allAssignments().filter(a => Number(a.status) === 1).length.toString(),
+      subtext: 'Currently assigned'
     },
     {
-      title: 'Budget Utilization',
-      value: '78%',
-      subtext: '2 projects over budget'
-    },
-    {
-      title: 'Pending Alerts',
-      value: '4',
-      subtext: 'Requires attention'
+      title: 'Available Staff',
+      value: this.allWorkers().filter(w => w.status).length.toString(),
+      subtext: 'Ready for deployment'
     }
-  ];
+    // ,
+    // {
+    //   title: 'Global Progress',
+    //   value: '72%', 
+    //   subtext: 'Average completion'
+    // }
+  ]);
 
-  // =========================
-  // WORKERS
-  // =========================
+  // 3. Site Feed basado en las últimas 4 asignaciones
+  feed = computed(() => {
+    return this.allAssignments()
+      .slice(-4)
+      .map(a => ({
+        id: a.id_assignments,
+        time: 'Recent',
+        message: `Worker ID ${a.users_id} assigned to project ${a.constructionsSites_id}`
+      }));
+  });
 
-  empleados: IUser[] = [
-    {
-      id_users: 1,
-      name: 'Marcus',
-      surname: 'Johnson',
-      mail: 'marcus.j@constructora.com',
-      password_hash: '$2b$10$n97aYc...', // Ejemplo de hash
-      role: 'admin',
-      created_at: new Date('2024-01-15'),
-      status: true
-    },
-    {
-      id_users: 2,
-      name: 'Sarah',
-      surname: 'Chen',
-      mail: 'sarah.chen@constructora.com',
-      password_hash: '$2b$10$p02bXd...',
-      role: 'operario',
-      created_at: new Date('2024-01-20'),
-      status: false
-    },
-    {
-      id_users: 3,
-      name: 'David',
-      surname: 'Miller',
-      mail: 'd.miller@constructora.com',
-      password_hash: '$2b$10$q88cXz...',
-      role: 'operario',
-      created_at: new Date('2024-02-01'),
-      status: true
-    },
-    {
-      id_users: 4,
-      name: 'James',
-      surname: 'Wilson',
-      mail: 'j.wilson@constructora.com',
-      password_hash: '$2b$10$m11dYw...',
-      role: 'operario',
-      created_at: new Date('2024-02-05'),
-      status: true
-    },
-    {
-      id_users: 5,
-      name: 'Robert',
-      surname: 'Fox',
-      mail: 'robert.fox@constructora.com',
-      password_hash: '$2b$10$z44fRt...',
-      role: 'admin',
-      created_at: new Date('2024-02-10'),
-      status: false
+  // --- CICLO DE VIDA ---
+  async ngOnInit() {
+    await this.loadDashboardData();
+  }
+
+  // --- CARGA DE DATOS ---
+async loadDashboardData() {
+  const userId = this.authService.getCurrentUserId();
+  
+  try {
+    // 1. Cargamos las listas generales (esto no debería fallar)
+    const [workers, constructions, assignments] = await Promise.all([
+      this.userService.getAll(),
+      this.constructionService.getAll(),
+      this.assignmentsService.getAll()
+    ]);
+
+    this.allWorkers.set(workers);
+    this.allConstructions.set(constructions);
+    this.allAssignments.set(assignments);
+
+    // 2. Intentamos cargar el usuario actual por separado
+    if (userId) {
+      try {
+        const user = await this.userService.getById(userId.toString());
+        this.currentUser.set(user);
+      } catch (userError) {
+        console.warn('Could not load current user profile', userError);
+        // Seteamos un usuario genérico o nulo para que no rompa el avatar
+      }
     }
-  ];
 
-  // =========================
-  // PROJECTS
-  // =========================
-
-  projects: Project[] = [
-    {
-      id: 1,
-      name: 'Downtown Renovation',
-      location: 'City Center',
-      completion: 75,
-      status: 'On Track'
-    },
-    {
-      id: 2,
-      name: 'Highway Extension',
-      location: 'North Exit',
-      completion: 45,
-      status: 'Delayed'
-    },
-    {
-      id: 3,
-      name: 'Bridge Reconstruction',
-      location: 'River District',
-      completion: 60,
-      status: 'On Track'
-    }
-  ];
-
-  // =========================
-  // SITE FEED
-  // =========================
-
-  feed: FeedItem[] = [
-    {
-      id: 1,
-      time: '10 min ago',
-      message: 'Material delivery confirmed for Downtown Renovation.'
-    },
-    {
-      id: 2,
-      time: '2 hours ago',
-      message: 'Safety inspection alert triggered at North Exit.'
-    },
-    {
-      id: 3,
-      time: 'Yesterday',
-      message: 'New worker assigned to Bridge Reconstruction.'
-    }
-  ];
-
+    this.cdr.detectChanges();
+  } catch (error) {
+    console.error('Critical error loading dashboard lists', error);
+  }
+}
 }

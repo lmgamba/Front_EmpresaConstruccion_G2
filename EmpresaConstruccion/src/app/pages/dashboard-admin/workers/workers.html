@@ -70,7 +70,7 @@
       <h2>Constructions supervised by you</h2>
       <span class="badge-total"> {{ totalConstructions() }}</span>
     </div>
-    <div class="scroll-area container" style="max-height: 70vh; overflow-y: auto">
+    <div class="scroll-area container" style="max-height: 90vh; overflow-y: auto">
       @for (site of arrayConstructions(); track site.id_constructions) {
         <site-card
           [construction]="site"

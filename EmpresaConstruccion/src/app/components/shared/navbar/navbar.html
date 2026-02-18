@@ -2,7 +2,7 @@
   @if (isAdmin()) {
     <a
       class="nav-item"
-      routerLink="/dashboard_admin"
+      routerLink="/dashboard"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       >Overview</a
@@ -48,7 +48,7 @@
   @if (isUser()) {
     <a
       class="nav-item"
-      routerLink="/dashboard_user"
+      routerLink="/dashboard"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
       >Overview</a

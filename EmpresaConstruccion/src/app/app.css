@@ -1,7 +1,7 @@
 .app-shell {
   display: grid;
   /* La sidebar mide 260px y el resto ocupa todo lo que queda */
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: 200px 1fr;
   grid-template-areas: 'sidebar content';
   min-height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
   gap: 0; /* Cero espacio entre celdas */
@@ -56,6 +56,14 @@
   cursor: pointer;
   border-top: 1px solid #1e293b;
   transition: color 0.2s;
+}
+
+.btn-logout {
+  background-color: transparent;
+  color: #711717;
+  border: 2px solid #711717;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .signout:hover {

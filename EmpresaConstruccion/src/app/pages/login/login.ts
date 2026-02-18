@@ -25,13 +25,12 @@ export class Login {
   async onSubmit() {
     //this.registroFrom.value = > valores del form
     try {
-      //TODO user service
       const response = await this.AuthService.login(this.loginForm.value);
       console.log(response)
 
       localStorage.setItem('token', response.token)
       //redireccion a la pagina correspondiente segun el rol
-      this.router.navigateByUrl('/dashboard_admin')
+      this.router.navigateByUrl('/dashboard');
     } catch (error) {
       Swal.fire({
                 title: 'Mistake!',
