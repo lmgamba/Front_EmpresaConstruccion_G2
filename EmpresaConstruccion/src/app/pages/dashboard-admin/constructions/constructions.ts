@@ -1,135 +1,108 @@
-import { Component, inject, OnInit } from '@angular/core'; // Quitamos Input, añadimos OnInit
+import { Component, inject, OnInit, signal, ChangeDetectorRef, computed } from '@angular/core';
 import { SiteCard } from './site-card/site-card';
 import { IConstruction } from '../../../interfaces/iconstruction';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import Swal from 'sweetalert2';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IUser } from '../../../interfaces/iuser';
 import { ConstructionService } from '../../../core/services/constructions-service';
+import { AssignmentsService } from '../../../core/services/assignments-service';
+import { UserService } from '../../../core/services/users-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-constructions',
-  standalone: true, // Asegúrate de tener esto si usas imports
+  standalone: true,
   imports: [SiteCard, ReactiveFormsModule],
   templateUrl: './constructions.html',
   styleUrl: './constructions.css',
 })
 export class Constructions implements OnInit {
-  private router = inject(Router);
-  private constructionService = inject(ConstructionService);
+private constructionService = inject(ConstructionService);
+  private assignmentsService = inject(AssignmentsService);
+  private usersService = inject(UserService);
+  private cdr = inject(ChangeDetectorRef);
 
-  // IMPORTANTE: Quitamos el @Input(). 
-  // Ahora es una propiedad interna del componente.
-  ArrayConstructions: IConstruction[] = [];
+  // --- SIGNALS DE ESTADO ---
+  arrayConstructions = signal<IConstruction[]>([]);
+  allWorkers = signal<IUser[]>([]);
+  allAssignments = signal<any[]>([]);
+
+  // --- COMPUTED PARA EL TOTAL ---
+  totalConstructions = computed(() => this.arrayConstructions().length);
 
   registerFrom: FormGroup = new FormGroup({
-    name: new FormControl(''),
-    description: new FormControl(''),
-    address: new FormControl(''),
-    latitude: new FormControl(),
-    longitude: new FormControl(),
+    name: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
+    address: new FormControl('', [Validators.required]),
+    latitude: new FormControl(null, [Validators.required]),
+    longitude: new FormControl(null, [Validators.required]),
     status: new FormControl('active')
   });
 
   async ngOnInit() {
-    await this.loadConstructions();
+    await this.loadAllData();
   }
 
-  // Encapsulamos la carga para reutilizarla
-  async loadConstructions() {
+  async loadAllData() {
     try {
-      const response = await this.constructionService.getAll();
-      console.log('Datos cargados:', response);
-      this.ArrayConstructions = response;
+      // Cargamos todo en paralelo para ir más rápido
+      const [constructions, workers, assignments] = await Promise.all([
+        this.constructionService.getAll(),
+        this.usersService.getAll(),
+        this.assignmentsService.getAll()
+      ]);
+
+      this.arrayConstructions.set(constructions);
+      this.allWorkers.set(workers);
+      this.allAssignments.set(assignments);
+      
+      this.cdr.detectChanges();
     } catch (error) {
-      console.error('Error cargando construcciones:', error);
+      console.error('Error cargando datos:', error);
     }
   }
 
+  // Función para obtener usuarios de una obra específica
+  getUsersByConstruction(siteId: number | undefined): IUser[] {
+    if (!siteId) return [];
+    
+    // Filtramos las asignaciones activas (status 1) para esta obra
+    const assignedIds = this.allAssignments()
+      .filter(a => Number(a.constructionsSites_id) === Number(siteId) && a.status === 1)
+      .map(a => a.users_id);
+
+    // Retornamos los objetos de usuario correspondientes
+    return this.allWorkers().filter(u => assignedIds.includes(u.id_users));
+  }
+
   async onSubmit() {
-    if (this.registerFrom.invalid) return;
+    if (this.registerFrom.invalid) {
+      Swal.fire('Atención', 'Por favor completa todos los campos obligatorios', 'info');
+      return;
+    }
 
     try {
-      const response = await this.constructionService.create(this.registerFrom.value);
+      await this.constructionService.create(this.registerFrom.value);
       
       await Swal.fire({
         title: 'Construction registered!',
         text: 'Construction registered successfully',
         icon: 'success',
-        confirmButtonText: 'Ok',
+        timer: 1500,
+        showConfirmButton: false
       });
 
-      this.registerFrom.reset({ status: 'active' }); // Limpiar formulario
-      await this.loadConstructions(); // REFRESCAR la lista automáticamente
+      this.registerFrom.reset({ status: 'active' });
+      
+      // Refrescamos la lista y el signal se encargará de actualizar el DOM
+      await this.loadAllData();
 
     } catch (error) {
       Swal.fire({
         title: 'Mistake!',
         text: 'There was a problem creating the project',
         icon: 'error',
-        confirmButtonText: 'Ok',
       });
     }
   }
 }
-
-
-
-
-  //  constructions: IConstruction[] = [
-  //    {
-      
-  //     id_constructions: 1,
-  //     name: 'Downtown Plaza',
-  //     description: 'Structural reinforcement and interior remodeling of the main commercial hall.',
-  //     address: '124 Broadway, NY',
-  //     latitude: 40.712776,
-  //     longitude: -74.005974,
-  //     status: 'In progress'
-  //   },
-  //   {
-  //     id_constructions: 2,
-  //     name: 'Skyline Tower',
-  //     description: 'Foundations and initial structure for a 20-story residential building.',
-  //     address: '450 W 42nd St, NY',
-  //     latitude: 40.759243,
-  //     longitude: -73.991409,
-  //     status: 'Soon'
-  //   },
-  //   {
-  //     id_constructions: 3,
-  //     name: 'East River Bridge',
-  //     description: 'Maintenance of suspension cables and surface repainting.',
-  //     address: 'Brooklyn Bridge, NY',
-  //     latitude: 40.706086,
-  //     longitude: -73.996864,
-  //     status: 'Ending'
-  //   },
-  //   {
-  //     id_constructions: 4,
-  //     name: 'Central Park Pavilion',
-  //     description: 'Complete restoration of the historical wooden structure.',
-  //     address: 'Central Park, NY',
-  //     latitude: 40.781219,
-  //     longitude: -73.966514,
-  //     status: 'Finished'
-  //   },
-  //   {
-  //     id_constructions: 5,
-  //     name: 'Harbor Warehouse',
-  //     description: 'Demolition of old piers and construction of a new logistics center.',
-  //     address: 'Pier 40, NY',
-  //     latitude: 40.729729,
-  //     longitude: -74.011505,
-  //     status: 'In progress'
-  //   },
-  //   {
-  //     id_constructions: 6,
-  //     name: 'Uptown Medical Center',
-  //     description: 'Final phase of electrical and plumbing installation in the North Wing.',
-  //     address: '168th St & Broadway, NY',
-  //     latitude: 40.841523,
-  //     longitude: -73.939281,
-  //     status: 'Ending'
-  //   }
-  // ];
-  

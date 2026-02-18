@@ -34,6 +34,8 @@ export class Workers implements OnInit {
 
   currentAdminId!: number;
 
+    // --- COMPUTED PARA EL TOTAL ---
+  totalConstructions = computed(() => this.arrayConstructions().length);
   // --- SIGNALS COMPUTADOS (Lógica automática) ---
   // Filtra los trabajadores según el botón pulsado y la búsqueda
   filteredWorkers = computed(() => {

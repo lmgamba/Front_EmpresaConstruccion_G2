@@ -36,16 +36,27 @@
   </div>
 
   <!-- LIST OF CONTRUCTIONS -->
+
   <div class="site-container">
     <div class="site-head">
-      <h2>Active Constructions</h2>
-      <span class="badge-total">4 Sites</span>
+      <h2>All Constructions</h2>
+      <span class="badge-total">{{ totalConstructions() }}</span>
     </div>
+
     <div class="container">
-      @for (site of ArrayConstructions; track site.id_constructions) {
-        <site-card [construction]="site"></site-card>
+      @for (site of arrayConstructions(); track site.id_constructions) {
+        <site-card
+          [construction]="site"
+          [showDetailsInput]="true"
+          [UsersbyConstruction]="getUsersByConstruction(site.id_constructions)"
+          [allAssignments]="allAssignments()"
+          (dataChanged)="loadAllData()"
+        >
+        </site-card>
       } @empty {
-        <p class="text-white">No workers found.</p>
+        <div class="no-data">
+          <p class="text-white">No constructions found in the database.</p>
+        </div>
       }
     </div>
   </div>

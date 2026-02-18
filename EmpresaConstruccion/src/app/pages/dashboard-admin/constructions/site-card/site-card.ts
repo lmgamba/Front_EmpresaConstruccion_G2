@@ -28,9 +28,10 @@ export class SiteCard {
     latitude: 0,
     longitude: 0
   };
+  @Input() showDetailsInput: boolean = false;
+
 
   @Output() dataChanged = new EventEmitter<void>();
-readonly showDetailsInput = input<boolean>(false, { alias: 'showDetails' });
 
   // Mantenemos un signal interno para permitir el toggle local
   // Lo inicializamos con el valor del input
@@ -39,15 +40,11 @@ readonly showDetailsInput = input<boolean>(false, { alias: 'showDetails' });
   constructor() {
     // Sincronizamos el signal interno cuando el input cambie
     effect(() => {
-      this.showDetails.set(this.showDetailsInput());
+      this.showDetails.set(this.showDetailsInput);
     }, { allowSignalWrites: true });
   }
 
 
-
-  // Signal para controlar la vista
-  // showDetails = signal<boolean>(false);
-  // showDetails.set(this.details); // Inicializamos con el valor del Input
 
   private sanitizer = inject(DomSanitizer);
   

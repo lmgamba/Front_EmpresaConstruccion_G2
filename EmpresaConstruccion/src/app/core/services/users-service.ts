@@ -10,16 +10,16 @@ export class UserService {
   private httpClient = inject(HttpClient);
   private baseUrl = 'http://127.0.0.1:8000/users';
 
-    /**
-   * Obtener todas las obras. 
-   * @param status Opcional: filtrar por status true o false, etc.
-   */
+  /**
+ * Obtener todas las obras. 
+ * @param status Opcional: filtrar por status true o false, etc.
+ */
   getAll(status?: string) {
     let params = new HttpParams();
     if (status) {
       params = params.set('status', status);
     }
-    
+
     return firstValueFrom(
       this.httpClient.get<IUser[]>(`${this.baseUrl}/`, { params })
     );
@@ -37,9 +37,9 @@ export class UserService {
     );
   }
 
-  deactivate(id_users: string) {
+  deleteUser(id_users: number) {
     return firstValueFrom(
-      this.httpClient.put<{ success: string }>(`${this.baseUrl}/${id_users}`, { status: false })
+      this.httpClient.delete(`${this.baseUrl}/${id_users}`)
     );
   }
 }
