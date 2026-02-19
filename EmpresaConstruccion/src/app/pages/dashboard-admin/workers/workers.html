@@ -3,7 +3,6 @@
     <h1>Worker Management</h1>
     <div class="btn-corner">
       <button class="btn primary">+ New Project</button>
-      <button class="btn btn-info">Publish changes</button>
     </div>
   </div>
 
@@ -46,21 +45,13 @@
           All
         </button>
       </div>
-
-      <workers-list
-        class="scroll-area container"
-        style="max-height: 70vh; overflow-y: auto"
-        [ArrayUsers]="filteredWorkers()"
-        [editOptions]="true"
-      ></workers-list>
+      <div class="scroll-area container" style="max-height: 50vh; overflow-y: auto">
+        <workers-list [ArrayUsers]="filteredWorkers()" [editOptions]="true"></workers-list>
+      </div>
     </div>
     <div class="site-footer">
       <button class="btn primary" [routerLink]="['/dashboard_admin/create-worker']">
         + Create Worker
-      </button>
-
-      <button class="btn primary btn-detete" [routerLink]="['/dashboard_admin/create-worker']">
-        + Delete Worker
       </button>
     </div>
   </div>

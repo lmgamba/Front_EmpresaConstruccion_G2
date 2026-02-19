@@ -29,6 +29,7 @@ export class SiteCard {
     longitude: 0
   };
   @Input() showDetailsInput: boolean = false;
+   @Input() editOptions: boolean = false; // Controla si se muestran las opciones de editar/eliminar
 
 
   @Output() dataChanged = new EventEmitter<void>();

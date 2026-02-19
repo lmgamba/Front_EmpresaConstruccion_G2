@@ -19,6 +19,8 @@ import { AssignmentUser } from './pages/dashboard-user/assignment-user/assignmen
 import { LogsAdmin } from './pages/dashboard-admin/logs-admin/logs-admin';
 import { AuthService } from './core/services/auth-service';
 import { inject } from '@angular/core';
+import { Editconstruction } from './pages/dashboard-admin/constructions/edit-construction/edit-construction';
+import { Deleteconstruction } from './pages/dashboard-admin/constructions/delete-construction/delete-construction';
 
 
 // Esta función decide el destino sin cargar componentes intermedios
@@ -50,6 +52,8 @@ export const routes: Routes = [
   { path: 'dashboard-user/settings', component: SettingUser },
   { path: 'dashboard_admin/workers', component: Workers, canActivate: [adminGuard] },
   { path: 'dashboard_admin/constructions', component: Constructions, canActivate: [adminGuard] },
+  { path: 'dashboard_admin/edit-construction/:id_constructions', component: Editconstruction },
+  { path: 'dashboard_admin/delete-construction/:id_constructions', component: Deleteconstruction },
   { path: 'dashboard_admin/logs', component: LogsAdmin, canActivate: [adminGuard]  },
   { path: 'dashboard_admin/create-worker', component: CreateWorkers, canActivate: [adminGuard] },
   { path: 'dashboard_admin/edit-worker/:id_users', component: EditWorker },

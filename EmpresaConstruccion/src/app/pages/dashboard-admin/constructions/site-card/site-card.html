@@ -8,12 +8,22 @@
       <p class="site-location">📍 {{ construction.address }}</p>
     </div>
 
-    @if (!showDetails()) {
-      <div class="map-thumbnail">
-        <img
-          src="https://images.unsplash.com/photo-1586449480537-3a22cf98b04c?q=80&w=1170&auto=format&fit=crop"
-          alt="Map"
-        />
+    @if (editOptions) {
+      <div class="site-actions">
+        <button
+          class="action-btn edit"
+          [routerLink]="['/dashboard_admin/edit-construction', construction.id_constructions]"
+          title="Edit construction"
+        >
+          ✎
+        </button>
+        <button
+          class="action-btn delete"
+          [routerLink]="['/dashboard_admin/delete-construction', construction.id_constructions]"
+          title="Delete construction"
+        >
+          🗑
+        </button>
       </div>
     }
   </div>
@@ -80,7 +90,7 @@
 
   <div class="site-footer">
     <a href="#" class="details-link" (click)="toggleDetails($event)">
-      {{ showDetails() ? '← Back to Team' : 'View Details & Map' }}
+      {{ showDetails() ? 'Staff' : 'View Details & Map' }}
     </a>
   </div>
 </div>

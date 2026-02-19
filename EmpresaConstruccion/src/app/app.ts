@@ -16,6 +16,6 @@ export class App {
 
   logout() {
     this.authService.logout();
-    this.router.navigateByUrl('login');
+    this.router.navigateByUrl('/login');
   }
 }

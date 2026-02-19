@@ -48,7 +48,7 @@ export class ConstructionService {
   /**
    * Actualizar una obra existente
    */
-  update(id: number, construction: Partial<IConstruction>) {
+  update(id: string, construction: Partial<IConstruction>) {
     return firstValueFrom(
       this.httpClient.put<{ msg: string }>(`${this.baseUrl}/${id}`, construction)
     );
@@ -57,7 +57,7 @@ export class ConstructionService {
   /**
    * Eliminar una obra (Solo si no tiene asignaciones activas)
    */
-  delete(id: number) {
+  delete(id: string) {
     return firstValueFrom(
       this.httpClient.delete<{ msg: string }>(`${this.baseUrl}/${id}`)
     );
@@ -66,7 +66,7 @@ export class ConstructionService {
   /**
    * Obtener lista de trabajadores asignados a una obra específica
    */
-  getWorkers(id: number) {
+  getWorkers(id: string) {
     return firstValueFrom(
       this.httpClient.get<IUser[]>(`${this.baseUrl}/${id}/workers`)
     );

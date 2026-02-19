@@ -58,14 +58,6 @@
   border: 1px solid var(--card-border);
 }
 
-.map-thumbnail img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(0.5);
-  /* Estética de mapa técnico */
-}
-
 /* --- Staffing / Progress Bar --- */
 .staffing-section {
   margin-bottom: 25px;
@@ -233,6 +225,47 @@ user_card {
   line-height: 1.5;
   color: #cbd5e1;
   padding: 10px 0;
+}
+
+/* Contenedor de botones a la derecha */
+.site-actions {
+  display: flex;
+  flex-direction: column; /* Cambia a 'row' si prefieres uno al lado del otro */
+  gap: 8px;
+  flex-shrink: 0; /* Evita que los botones se aplasten */
+}
+
+/* Estilo base para los botones circulares pequeños */
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #1e293b;
+  color: #94a3b8;
+  padding: 0;
+}
+
+/* Hover específico para Editar (Azul/Celeste) */
+.action-btn.edit:hover {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #3b82f6;
+  border-color: #3b82f6;
+  transform: scale(1.1);
+}
+
+/* Hover específico para Eliminar (Rojo) */
+.action-btn.delete:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border-color: #ef4444;
+  transform: scale(1.1);
 }
 
 /* Animación simple de aparición */
