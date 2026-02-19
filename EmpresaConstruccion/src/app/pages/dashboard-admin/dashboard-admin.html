@@ -73,7 +73,9 @@
                     </div>
                     <span class="percent"> {{ project.workerCount }} Assigned </span>
                   </td>
-                  <td><span class="status on-track">Active</span></td>
+                  <td>
+                    <span class="status" [class]="project.status">{{ project.status }}</span>
+                  </td>
                 </tr>
               }
             </tbody>
@@ -102,9 +104,9 @@
           </div>
           <div class="feed-list">
             @for (item of feed(); track item.id) {
-              <div class="feed-item" [class.alert-border]="item.type === 'Alert'">
+              <div class="feed-item" [class.alert-border]="item.type === 'ALERT'">
                 <div class="feed-header d-flex justify-content-between align-items-center">
-                  <span class="badge" [ngClass]="item.type === 'Alert' ? 'bg-danger' : 'bg-info'">
+                  <span class="badge" [ngClass]="item.type === 'ALERT' ? 'bg-danger' : 'bg-info'">
                     {{ item.type }}
                   </span>
                   <span class="feed-time small text-secondary">Recently</span>

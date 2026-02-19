@@ -69,7 +69,7 @@ export class DashboardUser implements OnInit {
       { title: 'Active Assignments', value: assignments.length.toString(), subtext: 'Currently deployed' },
       { title: 'Total Reports', value: logs.length.toString(), subtext: 'Logs submitted' },
       { title: 'Days on Current Site', value: activeDays > 0 ? activeDays.toString() : '0', subtext: 'Since start date' },
-      { title: 'Pending Alerts', value: logs.filter(l => l.type === 'Alert').length.toString(), subtext: 'Urgent reports' }
+      { title: 'Pending Alerts', value: logs.filter(l => l.type === 'ALERT').length.toString(), subtext: 'Urgent reports' }
     ];
   });
 

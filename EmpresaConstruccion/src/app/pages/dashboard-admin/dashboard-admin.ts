@@ -54,7 +54,7 @@ export class DashboardAdmin implements OnInit {
   metrics = computed(() => [
     { title: 'Active Projects', value: this.allConstructions().length.toString(), subtext: 'Global sites' },
     { title: 'On-site Workers', value: this.allAssignments().filter(a => Number(a.status) === 1).length.toString(), subtext: 'Current total' },
-    { title: 'Active Alerts', value: this.allLogs().filter(log => log.type === 'Alert').length.toString(), subtext: 'Urgent reports' },
+    { title: 'Active Alerts', value: this.allLogs().filter(log => log.type === 'ALERT').length.toString(), subtext: 'Urgent reports' },
     { title: 'Available Staff', value: this.allWorkers().filter(w => w.status).length.toString(), subtext: 'Ready' }
   ]);
 

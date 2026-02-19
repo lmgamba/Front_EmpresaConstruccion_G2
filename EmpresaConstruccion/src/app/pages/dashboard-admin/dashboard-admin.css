@@ -186,14 +186,19 @@
   font-size: 12px;
 }
 
-.status.on-track {
+.status.IN_PROGRESS {
+  background: #061a4e;
+  color: #1998a9e8;
+}
+
+.status.PLANNING {
   background: #064e3b;
   color: #10b981;
 }
 
-.status.delayed {
-  background: #7f1d1d;
-  color: #f87171;
+.status.FINISHED {
+  background: #343e69;
+  color: #5a67a2;
 }
 
 /* Feed */
