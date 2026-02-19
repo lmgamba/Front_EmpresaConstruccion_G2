@@ -11,9 +11,11 @@
             <label class="form-label">Usuario</label>
             <select class="form-control" formControlName="users_id">
                 <option value="" disabled>Select user</option>
-                <option *ngFor="let user of ArrayUsers" [value]="user.id_users">
+                @for (user of ArrayUsers(); track user.id_users) {
+                <option [value]="user.id_users">
                     {{ user.name }} {{ user.surname }}
                 </option>
+                }
             </select>
         </div>
 
@@ -22,9 +24,11 @@
             <label class="form-label">Obra</label>
             <select class="form-control" formControlName="constructionsSites_id">
                 <option value="" disabled>Select construction</option>
-                <option *ngFor="let c of ArrayConstructions" [value]="c.id_constructions">
+                @for (c of ArrayConstructions(); track c.id_constructions) {
+                <option [value]="c.id_constructions">
                     {{ c.name }}
                 </option>
+                }
             </select>
         </div>
 
@@ -47,8 +51,8 @@
     <hr class="my-4">
 
     <!-- Lista de assignments usando AssignmentCard -->
-    @for (a of assignments; track a.id_assignments) {
-    <app-assignments-card [assignment]="a" [ArrayUsers]="ArrayUsers" [ArrayConstructions]="ArrayConstructions"
+    @for (a of assignments(); track a.id_assignments) {
+    <app-assignments-card [assignment]="a" [ArrayUsers]="ArrayUsers()" [ArrayConstructions]="ArrayConstructions()"
         (finish)="finishAssignment($event)">
     </app-assignments-card>
     }

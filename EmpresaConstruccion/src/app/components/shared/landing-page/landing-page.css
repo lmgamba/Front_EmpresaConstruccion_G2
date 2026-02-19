@@ -1,0 +1,176 @@
+/* --- Contenedor Principal --- */
+:host {
+    display: block;
+    /* background-color: #0f172a; */
+    /* Slate 900 - Fondo base */
+    min-height: 100vh;
+    overflow: hidden;
+    /* Evita scroll si los orbes de luz se salen */
+    position: relative;
+    background-size: cover;
+}
+
+.landing-wrapper {
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 40%, #1e293b 0%, #0f172a 80%);
+    position: relative;
+    z-index: 10;
+    background-image: url("../landing-page/images/fondo.png");
+    background-size: cover;
+}
+
+.landing-content {
+    max-width: 800px;
+    animation: fadeUp 0.8s ease-out forwards;
+    /* Animación de entrada */
+}
+
+/* --- Logo --- */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: -200px auto;
+
+}
+
+.logo-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    /* Gradiente azul */
+    color: white;
+    font-size: 2.2rem;
+    font-weight: 800;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);*/
+    /* Sombra azul brillante */
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Tipografía --- */
+.company-name {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    /* Efecto de texto metálico/brillante */
+    background: linear-gradient(to right, #ffffff 30%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.slogan {
+    font-size: 1.25rem;
+    color: #94a3b8;
+    /* Gris azulado */
+    line-height: 1.6;
+    font-weight: 400;
+    max-width: 600px;
+}
+
+/* --- Botones --- */
+.btn {
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+}
+
+/* Botón Principal (Login) */
+.btn-primary {
+    background: linear-gradient(to right, #3b82f6, #2563eb);
+    border: none;
+    color: white;
+}
+
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.6);
+    color: white;
+}
+
+/* Botón Secundario (Crear Cuenta) */
+.btn-outline-secondary {
+    background-color: rgba(30, 41, 59, 0.6);
+    /* Slate 800 transparente */
+    border: 1px solid #334155;
+    color: #f8fafc;
+    backdrop-filter: blur(10px);
+    /* Efecto cristal */
+}
+
+.btn-outline-secondary:hover {
+    background-color: #334155;
+    border-color: #475569;
+    transform: translateY(-3px);
+    color: white;
+}
+
+/* --- Decoraciones de Fondo (Orbes de luz) --- */
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 1;
+    opacity: 0.4;
+    animation: float 10s infinite ease-in-out alternate;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background-color: rgba(59, 130, 246, 0.15);
+    /* Azul */
+    top: -10%;
+    left: -10%;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background-color: rgba(16, 185, 129, 0.1);
+    /* Verde esmeralda (guiño a tu perfil) */
+    bottom: -5%;
+    right: -5%;
+    animation-delay: -5s;
+}
+
+/* --- Animaciones --- */
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(30px, 50px);
+    }
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .company-name {
+        font-size: 3rem;
+    }
+
+    .slogan {
+        font-size: 1.1rem;
+    }
+}

@@ -4,6 +4,7 @@ import { AuthService } from '../../core/services/auth-service';
 import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, RouterLink],
@@ -33,11 +34,11 @@ export class Login {
       this.router.navigateByUrl('/dashboard');
     } catch (error) {
       Swal.fire({
-                title: 'Mistake!',
-                text: 'There was a problem logging in, please check your credentials and try again',
-                icon: 'error',
-                confirmButtonText: 'Ok',
-              });
+        title: 'Mistake!',
+        text: 'There was a problem logging in, please check your credentials and try again',
+        icon: 'error',
+        confirmButtonText: 'Ok',
+      });
     }
   }
 }

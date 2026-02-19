@@ -1,7 +1,10 @@
-<p>
-    Estado: {{ assignment.status === 1 ? 'Active' : 'Finished' }}
-</p>
+<div class="assignment-card">
+    <div class="assignment-info">
+        <p><strong>User:</strong> {{ UserName }}</p>
+        <p><strong>Construction:</strong> {{ ConstructionName }}</p>
+    </div>
 
-<button [disabled]="assignment.status !== 1" (click)="onFinish()" class="btn btn-warning">
-    Finalizar
-</button>
+    <div class="assignment-actions">
+        <button class="btn-finish" (click)="onFinish()">Finish</button>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+.assignment-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a2632;
+    color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.assignment-info p {
+    margin: 0.2rem 0;
+    font-size: 0.95rem;
+}
+
+.assignment-info strong {
+    color: #ffcc00;
+    /* resalta los títulos */
+}
+
+.assignment-actions {
+    display: flex;
+    align-items: center;
+}
+
+.btn-finish {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-finish:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+}

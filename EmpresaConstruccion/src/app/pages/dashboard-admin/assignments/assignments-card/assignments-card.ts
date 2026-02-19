@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { UsersCard } from '../../../../components/admin/user_card/user_card';
-import { SiteCard } from '../../constructions/site-card/site-card';
 import { IUser } from '../../../../interfaces/iuser';
 import { IConstruction } from '../../../../interfaces/iconstruction';
 import { IAssignments } from '../../../../interfaces/iassignments';
@@ -37,11 +35,22 @@ export class AssignmentsCard {
   // finalizar asignación
   @Output() finish = new EventEmitter<number>();
 
+
+
+  get UserName(): string {
+    const user = this.ArrayUsers.find(u => u.id_users === Number(this.assignment.users_id));
+    return user ? `${user.name} ${user.surname}` : 'Sin usuario';
+  }
+
+  get ConstructionName(): string {
+    const construction = this.ArrayConstructions.find(c => c.id_constructions === Number(this.assignment.constructionsSites_id));
+    return construction ? construction.name : 'Sin obra';
+  }
+
+
   onFinish() {
     if (this.assignment.status === 1) {
       this.finish.emit(this.assignment.id_assignments);
     }
   }
-
-
 }

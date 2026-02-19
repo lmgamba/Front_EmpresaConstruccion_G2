@@ -1,30 +1,25 @@
 <div class="app-shell">
   <aside class="sidebar">
     <div class="logo">
-      <div class="logo-icon">CM</div>
-      <span>BuildMaster</span>
+      <div class="logo-icon">BF</div>
+      <span>BuildFlow</span>
     </div>
 
     <!-- MOSTRAR CREAR CUENTA SOLO SI NO ESTÁ LOGUEADO -->
     @if (!authService.isLogged()) {
-      <div class="footer">
-        <a routerLink="/register" class="create-account"> Create an account </a>
-      </div>
+    <div class="footer">
+      <a routerLink="/register" class="create-account"> Create an account </a>
+    </div>
     } @else {
-      <!-- MOSTRAR SIGN OUT SOLO SI ESTÁ LOGUEADO -->
-      <app-navbar></app-navbar>
-      <div class="footer">
-        <a
-          class="nav-item"
-          routerLink="settings"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Settings</a
-        >
-        <button (click)="logout()" class="btn-logout signout" routerLink="/register">
-          Sign Out
-        </button>
-      </div>
+    <!-- MOSTRAR SIGN OUT SOLO SI ESTÁ LOGUEADO -->
+    <app-navbar></app-navbar>
+    <div class="footer">
+      <a class="nav-item" routerLink="settings" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">Settings</a>
+      <button (click)="logout()" class="btn-logout signout" routerLink="/register">
+        Sign Out
+      </button>
+    </div>
     }
   </aside>
 

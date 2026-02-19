@@ -1,8 +1,7 @@
-
 import { AssignmentsService } from '../../../core/services/assignments-service';
 import { ConstructionService } from '../../../core/services/constructions-service';
 import { UserService } from '../../../core/services/users-service';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AssignmentsCard } from './assignments-card/assignments-card';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IUser } from '../../../interfaces/iuser';
@@ -25,9 +24,9 @@ export class Assignments implements OnInit {
 
 
   // Datos para select
-  ArrayUsers: IUser[] = [];
-  ArrayConstructions: IConstruction[] = [];
-  assignments: IAssignments[] = [];
+  ArrayUsers = signal<IUser[]>([]);
+  ArrayConstructions = signal<IConstruction[]>([]);
+  assignments = signal<IAssignments[]>([]);
 
 
   // formulario
@@ -48,7 +47,9 @@ export class Assignments implements OnInit {
   // cargamos users
   async loadUsers() {
     try {
-      this.ArrayUsers = await this.UserService.getAll();
+      const response = await this.UserService.getAll();
+      this.ArrayUsers.set(response);
+      console.log('usuarios cargados', this.ArrayUsers());
     } catch (error) {
       console.error('Mistake loading users', error);
     }
@@ -57,7 +58,8 @@ export class Assignments implements OnInit {
   // cargamos constructions
   async loadConstructions() {
     try {
-      this.ArrayConstructions = await this.ConstructionService.getAll();
+      const response = await this.ConstructionService.getAll();
+      this.ArrayConstructions.set(response);
     } catch (error) {
       console.error('Mistake loading constructions', error);
     }
@@ -66,7 +68,8 @@ export class Assignments implements OnInit {
   // cargamos assignments
   async loadAssignments() {
     try {
-      this.assignments = await this.AssignmentsService.getAll();
+      const response = await this.AssignmentsService.getAll();
+      this.assignments.set(response);
     } catch (error) {
       console.error('Mistake loading assignments', error);
     }

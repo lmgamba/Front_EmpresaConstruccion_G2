@@ -20,6 +20,7 @@ import { AuthService } from './core/services/auth-service';
 import { inject } from '@angular/core';
 import { Editconstruction } from './pages/dashboard-admin/constructions/edit-construction/edit-construction';
 import { Deleteconstruction } from './pages/dashboard-admin/constructions/delete-construction/delete-construction';
+import { LandingPage } from './components/shared/landing-page/landing-page';
 
 
 // Esta función decide el destino sin cargar componentes intermedios
@@ -30,7 +31,7 @@ const dashboardRedirect = () => {
 
   if (role === 'admin') return 'dashboard_admin';
   if (role === 'user') return 'dashboard_user';
-  
+
   return ''; // Si no hay rol, vuelve al login
 };
 
@@ -38,10 +39,10 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'login', component: Login },
   // RUTA DINÁMICA: No tiene componente, solo redirige
-  { 
-    path: 'dashboard', 
-    redirectTo: dashboardRedirect, 
-    pathMatch: 'full' 
+  {
+    path: 'dashboard',
+    redirectTo: dashboardRedirect,
+    pathMatch: 'full'
   },
 
   { path: 'dashboard_admin', component: DashboardAdmin, canActivate: [authGuard] },
@@ -53,10 +54,11 @@ export const routes: Routes = [
   { path: 'dashboard_admin/constructions', component: Constructions, canActivate: [adminGuard] },
   { path: 'dashboard_admin/edit-construction/:id_constructions', component: Editconstruction },
   { path: 'dashboard_admin/delete-construction/:id_constructions', component: Deleteconstruction },
-  { path: 'dashboard_admin/logs', component: LogsAdmin, canActivate: [adminGuard]  },
+  { path: 'dashboard_admin/logs', component: LogsAdmin, canActivate: [adminGuard] },
   { path: 'dashboard_admin/create-worker', component: CreateWorkers, canActivate: [adminGuard] },
-  { path: 'dashboard_admin/edit-worker/:id_users', component: EditWorker, canActivate: [adminGuard]  },
-  { path: 'dashboard_admin/delete-worker/:id_users', component: DeleteWorker, canActivate: [adminGuard]  },
+  { path: 'dashboard_admin/edit-worker/:id_users', component: EditWorker, canActivate: [adminGuard] },
+  { path: 'dashboard_admin/delete-worker/:id_users', component: DeleteWorker, canActivate: [adminGuard] },
   { path: 'dashboard_admin/assignments', component: Assignments, canActivate: [adminGuard] },
-  { path: '**', redirectTo: 'dashboard' } // Redirige al dashboard para cualquier ruta no definida, debe redirigir a dashboard user si es user, o al login si no está autenticado
+  { path: '**', redirectTo: 'dashboard' }, // Redirige al dashboard para cualquier ruta no definida, debe redirigir a dashboard user si es user, o al login si no está autenticado
+  { path: '', component: LandingPage }
 ];
