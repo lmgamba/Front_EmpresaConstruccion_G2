@@ -66,7 +66,7 @@
 
 .metrics {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin-bottom: 30px;
 }
@@ -120,6 +120,7 @@
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 30px;
+  overflow: hidden;
 }
 
 .card-header {
@@ -137,6 +138,7 @@
   align-items: center;
   justify-content: center;
   color: #64748b;
+  overflow: hidden;
 }
 
 .worker-status.available {
@@ -154,6 +156,17 @@
 .projects-table {
   width: 100%;
   border-collapse: collapse;
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgba(30, 41, 59, 0.8);
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #94a3b8;
 }
 
 .projects-table th,

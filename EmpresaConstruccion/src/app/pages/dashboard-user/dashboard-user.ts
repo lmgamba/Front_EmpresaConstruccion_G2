@@ -1,129 +1,110 @@
-import { Component, inject, OnInit, signal, computed, ChangeDetectorRef } from '@angular/core';
-import { WorkersList } from '../../components/admin/workers-list/workers-list';
-import { IUser } from '../../interfaces/iuser';
-import { IConstruction } from '../../interfaces/iconstruction';
-import { IAssignments } from '../../interfaces/iassignments';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth-service';
 import { UserService } from '../../core/services/users-service';
-import { ConstructionService } from '../../core/services/constructions-service';
 import { AssignmentsService } from '../../core/services/assignments-service';
-import { RouterLink } from '@angular/router';
+import { LogService } from '../../core/services/logs-service';
+import { ConstructionService } from '../../core/services/constructions-service';
+import { LogCard } from '../../components/user/log-card/log-card';
+import { CardAssignment } from '../dashboard-user/assignment-user/card-assignment/card-assignment';
+import { IUser } from '../../interfaces/iuser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard-user',
   standalone: true,
-  imports: [WorkersList, RouterLink],
+  imports: [CommonModule, LogCard, CardAssignment],
   templateUrl: './dashboard-user.html',
-  styleUrl: './dashboard-user.css',
+  styleUrl: './dashboard-user.css'
 })
-export class DashboardUser {
-  // --- INYECCIONES ---
+export class DashboardUser implements OnInit {
   private authService = inject(AuthService);
   private userService = inject(UserService);
-  private constructionService = inject(ConstructionService);
   private assignmentsService = inject(AssignmentsService);
-  private cdr = inject(ChangeDetectorRef);
+  private logService = inject(LogService);
+  private constructionService = inject(ConstructionService);
+  private sanitizer = inject(DomSanitizer);
 
-  // --- SIGNALS DE ESTADO (DATOS BRUTOS) ---
-  allWorkers = signal<IUser[]>([]);
-  allConstructions = signal<IConstruction[]>([]);
-  allAssignments = signal<IAssignments[]>([]);
+  // Signals
   currentUser = signal<IUser | null>(null);
+  myAssignments = signal<any[]>([]);
+  myLogs = signal<any[]>([]);
+  allConstructions = signal<any[]>([]);
 
-  // --- SIGNALS COMPUTADOS (EVITAN EL TIMEOUT) ---
-  
-  // 1. Proyectos con estadísticas pre-calculadas para la tabla
-  projectsWithStats = computed(() => {
+  // Agregamos un computed para obtener la URL del mapa de la asignación actual
+  currentMapUrl = computed<SafeResourceUrl | null>(() => {
+    const assignments = this.myAssignments();
     const constructions = this.allConstructions();
-    const assignments = this.allAssignments();
 
-    return constructions.map(project => {
-      // Filtrar asignaciones activas para este proyecto específico
-      const assigned = assignments.filter(a => 
-        Number(a.constructionsSites_id) === Number(project.id_constructions) && 
-        Number(a.status) === 1
+    if (assignments.length > 0) {
+      // Buscamos la data de la construcción vinculada a la primera asignación
+      const activeSite = constructions.find(
+        c => c.id_constructions === assignments[0].constructionsSites_id
       );
 
-      return {
-        ...project,
-        workerCount: assigned.length,
-        // Lógica de progreso ejemplo: 20% por trabajador, máximo 100%
-        completion: Math.min(assigned.length * 20, 100)
-      };
-    });
-  });
-
-  // 2. Métricas de la parte superior
-  metrics = computed(() => [
-    {
-      title: 'Active Projects',
-      value: this.allConstructions().length.toString(),
-      subtext: 'Across all locations'
-    },
-    {
-      title: 'On-site Workers',
-      value: this.allAssignments().filter(a => Number(a.status) === 1).length.toString(),
-      subtext: 'Currently assigned'
-    },
-    {
-      title: 'Available Staff',
-      value: this.allWorkers().filter(w => w.status).length.toString(),
-      subtext: 'Ready for deployment'
-    }
-    // ,
-    // {
-    //   title: 'Global Progress',
-    //   value: '72%', 
-    //   subtext: 'Average completion'
-    // }
-  ]);
-
-  // 3. Site Feed basado en las últimas 4 asignaciones
-  feed = computed(() => {
-    return this.allAssignments()
-      .slice(-4)
-      .map(a => ({
-        id: a.id_assignments,
-        time: 'Recent',
-        message: `Worker ID ${a.users_id} assigned to project ${a.constructionsSites_id}`
-      }));
-  });
-
-  // --- CICLO DE VIDA ---
-  async ngOnInit() {
-    await this.loadDashboardData();
-  }
-
-  // --- CARGA DE DATOS ---
-async loadDashboardData() {
-  const userId = this.authService.getCurrentUserId();
-  
-  try {
-    // 1. Cargamos las listas generales (esto no debería fallar)
-    const [workers, constructions, assignments] = await Promise.all([
-      this.userService.getAll(),
-      this.constructionService.getAll(),
-      this.assignmentsService.getAll()
-    ]);
-
-    this.allWorkers.set(workers);
-    this.allConstructions.set(constructions);
-    this.allAssignments.set(assignments);
-
-    // 2. Intentamos cargar el usuario actual por separado
-    if (userId) {
-      try {
-        const user = await this.userService.getById(userId.toString());
-        this.currentUser.set(user);
-      } catch (userError) {
-        console.warn('Could not load current user profile', userError);
-        // Seteamos un usuario genérico o nulo para que no rompa el avatar
+      if (activeSite && activeSite.latitude && activeSite.longitude) {
+        // Usamos la misma lógica de URL que en site-cards
+        const rawUrl = `https://maps.google.com/maps?q=${activeSite.latitude},${activeSite.longitude}&z=15&output=embed`;
+        return this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl);
       }
     }
+    return null;
+  });
 
-    this.cdr.detectChanges();
-  } catch (error) {
-    console.error('Critical error loading dashboard lists', error);
+
+  // Métricas dinámicas para el operario
+  metrics = computed(() => {
+    const assignments = this.myAssignments();
+    const logs = this.myLogs();
+    
+    // Cálculo de días en la asignación actual (simplificado)
+    let activeDays = 0;
+    if (assignments.length > 0) {
+      const start = new Date(assignments[0].date_start);
+      const end = new Date();
+      activeDays = Math.floor((end.getTime() - start.getTime()) / (1000 * 3600 * 24));
+    }
+
+    return [
+      { title: 'Active Assignments', value: assignments.length.toString(), subtext: 'Currently deployed' },
+      { title: 'Total Reports', value: logs.length.toString(), subtext: 'Logs submitted' },
+      { title: 'Days on Current Site', value: activeDays > 0 ? activeDays.toString() : '0', subtext: 'Since start date' },
+      { title: 'Pending Alerts', value: logs.filter(l => l.type === 'Alert').length.toString(), subtext: 'Urgent reports' }
+    ];
+  });
+
+  // Últimos 3 logs para la barra lateral
+  recentLogs = computed(() => this.myLogs().slice(0, 3));
+
+  async ngOnInit() {
+    const userId = this.authService.getCurrentUserId();
+    if (userId) {
+      await this.loadDashboardData(userId);
+    }
   }
-}
+
+  async loadDashboardData(userId: number) {
+    try {
+      const [user, assignments, logs, constructions] = await Promise.all([
+        this.userService.getById(userId.toString()),
+        this.assignmentsService.getAssignmentsByUserId(userId),
+        this.logService.getByUser(userId),
+        this.constructionService.getAll()
+      ]);
+
+      this.currentUser.set(user);
+      this.myLogs.set(logs);
+      this.allConstructions.set(constructions);
+      
+      // Enriquecer asignaciones con nombres de obras
+      const mapped = assignments.map((asig: any) => ({
+        ...asig,
+        constructionName: constructions.find(c => c.id_constructions === asig.constructionsSites_id)?.name || 'Unknown Site'
+      }));
+      this.myAssignments.set(mapped);
+
+    } catch (error) {
+      console.error('Error loading User Dashboard:', error);
+    }
+  }
 }
