@@ -12,8 +12,7 @@ import { DeleteWorker } from './pages/dashboard-admin/delete-worker/delete-worke
 import { Assignments } from './pages/dashboard-admin/assignments/assignments';
 import { adminGuard } from './core/guards/admin-guard';
 import { userGuard } from './core/guards/user-guard';
-import { SettingAdmin } from './pages/dashboard-admin/setting/setting';
-import { SettingUser } from './pages/dashboard-user/setting/setting';
+import { Settings } from './components/shared/setting/setting';
 import { Log } from './components/user/log/log';
 import { AssignmentUser } from './pages/dashboard-user/assignment-user/assignment-user';
 import { LogsAdmin } from './pages/dashboard-admin/logs-admin/logs-admin';
@@ -47,18 +46,17 @@ export const routes: Routes = [
 
   { path: 'dashboard_admin', component: DashboardAdmin, canActivate: [authGuard] },
   { path: 'dashboard_user', component: DashboardUser, canActivate: [authGuard] },
-  { path: 'dashboard_user/logs', component: Log },
+  { path: 'dashboard_user/logs', component: Log, canActivate: [userGuard] },
   { path: 'dashboard-user/assignments', component: AssignmentUser, canActivate: [userGuard] },
-  { path: 'dashboard-user/settings', component: SettingUser },
+  { path: 'settings', component: Settings, canActivate: [authGuard] },
   { path: 'dashboard_admin/workers', component: Workers, canActivate: [adminGuard] },
   { path: 'dashboard_admin/constructions', component: Constructions, canActivate: [adminGuard] },
   { path: 'dashboard_admin/edit-construction/:id_constructions', component: Editconstruction },
   { path: 'dashboard_admin/delete-construction/:id_constructions', component: Deleteconstruction },
   { path: 'dashboard_admin/logs', component: LogsAdmin, canActivate: [adminGuard]  },
   { path: 'dashboard_admin/create-worker', component: CreateWorkers, canActivate: [adminGuard] },
-  { path: 'dashboard_admin/edit-worker/:id_users', component: EditWorker },
-  { path: 'dashboard_admin/delete-worker/:id_users', component: DeleteWorker },
+  { path: 'dashboard_admin/edit-worker/:id_users', component: EditWorker, canActivate: [adminGuard]  },
+  { path: 'dashboard_admin/delete-worker/:id_users', component: DeleteWorker, canActivate: [adminGuard]  },
   { path: 'dashboard_admin/assignments', component: Assignments, canActivate: [adminGuard] },
-  { path: 'dashboard_admin/settings', component: SettingAdmin },
-  { path: '**', redirectTo: 'dashboard' }, // Redirige al dashboard para cualquier ruta no definida, debe redirigir a dashboard user si es user, o al login si no está autenticado
+  { path: '**', redirectTo: 'dashboard' } // Redirige al dashboard para cualquier ruta no definida, debe redirigir a dashboard user si es user, o al login si no está autenticado
 ];

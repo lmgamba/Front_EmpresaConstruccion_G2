@@ -44,7 +44,8 @@
         @for (worker of UsersbyConstruction; track worker.id_users) {
           <div class="user-item-container">
             <user_card [user]="worker"></user_card>
-            <button class="btn-remove" (click)="removeWorker(worker.id_users)">×</button>
+            <!-- DESCOMENTAR SI SE CREA RUTA DE DELETE ASSIGMENT
+             <button class="btn-remove" (click)="removeWorker(worker.id_users)">×</button> -->
           </div>
         } @empty {
           <p class="text-white opacity-50">No workers assigned yet.</p>

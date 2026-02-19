@@ -51,11 +51,24 @@
 /* SIGNOUT AL FINAL */
 .footer {
   margin-top: auto; /* Empuja el botón al fondo del sidebar */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   padding: 15px 0;
   color: #64748b;
-  cursor: pointer;
   border-top: 1px solid #1e293b;
   transition: color 0.2s;
+  a {
+    cursor: pointer;
+  }
+}
+
+.nav-item {
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #94a3b8;
+  transition: 0.2s ease;
 }
 
 .btn-logout {

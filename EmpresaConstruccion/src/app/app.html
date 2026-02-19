@@ -13,8 +13,17 @@
     } @else {
       <!-- MOSTRAR SIGN OUT SOLO SI ESTÁ LOGUEADO -->
       <app-navbar></app-navbar>
-      <div class="footer signout" routerLink="/register">
-        <button (click)="logout()" class="btn-logout signout">Sign Out</button>
+      <div class="footer">
+        <a
+          class="nav-item"
+          routerLink="settings"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Settings</a
+        >
+        <button (click)="logout()" class="btn-logout signout" routerLink="/register">
+          Sign Out
+        </button>
       </div>
     }
   </aside>

@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterOutlet, RouterLinkWithHref, RouterLink } from '@angular/router';
+import { Router, RouterOutlet, RouterLinkWithHref, RouterLink, RouterLinkActive } from '@angular/router';
 import { Navbar } from './components/shared/navbar/navbar';
 import { AuthService } from './core/services/auth-service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, RouterLinkWithHref, RouterLink],
+  imports: [RouterOutlet, Navbar, RouterLinkWithHref, RouterLink,RouterLinkActive],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
