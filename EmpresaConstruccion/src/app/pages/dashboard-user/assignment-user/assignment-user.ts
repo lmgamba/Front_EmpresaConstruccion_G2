@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { IAssignments } from '../../../interfaces/iassignments';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -12,8 +12,8 @@ import { CardAssignment } from './card-assignment/card-assignment';
   styleUrl: './assignment-user.css',
 })
 export class AssignmentUser implements OnInit {
-  myAssignments: IAssignments[] = [];
-  allConstructions: IConstruction[] = [];
+  myAssignments = signal<IAssignments[]>([]);
+  allConstructions = signal<IConstruction[]>([]);
   userId: number = 0;
 
   constructor(private http: HttpClient) {}
@@ -54,7 +54,7 @@ export class AssignmentUser implements OnInit {
       .subscribe({
         next: (data) => {
           console.log('Asignaciones recibidas:', data);
-          this.myAssignments = data;
+          this.myAssignments.set(data);
         },
         error: (e) => console.error('Error cargando assignments:', e),
       });
@@ -65,7 +65,7 @@ export class AssignmentUser implements OnInit {
     this.http.get<IConstruction[]>('http://127.0.0.1:8000/constructions').subscribe({
       next: (data) => {
         console.log('Obras recibidas:', data);
-        this.allConstructions = data;
+        this.allConstructions.set(data);
       },
       error: (e) => console.error('Error cargando obras:', e),
     });
