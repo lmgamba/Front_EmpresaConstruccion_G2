@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Delete Construction</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- SELECT constructions -->
+    <div class="mb-3">
+      <label class="form-label">Select Construction</label>
+
+      <select
+        class="form-control"
+        formControlName="selectedConstruction"
+        (change)="onconstructionSelect($event)"
+      >
+        <option value="" disabled selected>Select a Construction</option>
+
+        @for (constructions of ArrayConstructions(); track constructions.id_constructions) {
+          <option [value]="constructions.id_constructions">
+            {{ constructions.name }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <!-- ID -->
+    @if (selectedConstruction()) {
+      <div class="mb-3">
+        <label class="form-label">ID</label>
+
+        <input
+          type="text"
+          class="form-control"
+          [value]="selectedConstruction()?.id_constructions"
+          readonly
+        />
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" [value]="selectedConstruction()?.name" />
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Description</label>
+        <input type="text" class="form-control" [value]="selectedConstruction()?.description" />
+      </div>
+      <div class="mb-4">
+        <label class="form-label">Address</label>
+        <input type="text" class="form-control" [value]="selectedConstruction()?.address" />
+      </div>
+    }
+
+    <!-- DELETE BUTTON -->
+    <button type="submit" class="btn btn-danger" [disabled]="!selectedConstruction()">
+      Delete Construction
+    </button>
+  </form>
+</div>
